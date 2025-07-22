@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import Header from '@/components/Header';
 import Blogs from '@/components/Blogs';
 import Keystrokes from '@/components/Keystrokes';
-
+import Testimonials from '@/components/Testimonials';
 import React from 'react';
 import Projects from '@/components/Projects';
 
@@ -57,6 +57,10 @@ const page = () => {
 
           <div className="keystrokes">
             <Keystrokes/>
+          </div>
+
+          <div className="testimonials">
+            <Testimonials/>
           </div>
         </div>
         <div className="right">
