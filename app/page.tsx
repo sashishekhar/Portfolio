@@ -3,6 +3,8 @@ import Header from '@/components/Header';
 import Blogs from '@/components/Blogs';
 import Keystrokes from '@/components/Keystrokes';
 import Testimonials from '@/components/Testimonials';
+import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
 import React from 'react';
 import Projects from '@/components/Projects';
 
@@ -61,6 +63,14 @@ const page = () => {
 
           <div className="testimonials">
             <Testimonials/>
+          </div>
+
+          <div className='contact'>
+            <Contact/>
+          </div>
+
+          <div className='footer '>
+            <Footer/>
           </div>
         </div>
         <div className="right">

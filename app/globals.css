@@ -37,6 +37,9 @@
   .testimonial-card-inset-shadow {
     box-shadow: inset 1px 1px 5px rgba(255,255,255,0.02), inset -1px -1px 5px rgba(255,255,255,0.02);
   }
+  .button-inset-shadow {
+    box-shadow: inset 1px 1px 5px rgba(255,255,255,0.08), inset -1px -1px 5px rgba(255,255,255,0.08);
+  }
 }
 
 
