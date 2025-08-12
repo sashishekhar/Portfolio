@@ -12,7 +12,7 @@ const Footer = () => {
             [mask-image:linear-gradient(to_right,_transparent,_black_20%,_black_80%,_transparent)]
             mask-repeat-no-repeat mask-size-full"
     />
-    <div className='flex flex-row justify-between my-2 mx-12'>
+    <div className='flex flex-row justify-between my-2 mx-8'>
         <div className='text-[14px] font-mono dark:text-neutral-400'>Made with love by Sashi</div>
         <div className='flex flex-row gap-4'>
             <Linkedin01Icon className='w-5 h-5 dark:text-neutral-400' />

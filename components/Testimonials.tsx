@@ -97,7 +97,7 @@ function Testimonials() {
                                 <div className='flex h-full flex-col'>
                                     <div className="text w-full h-fit break-words whitespace-normal text-neutral-900 dark:text-neutral-400 font-mono text-[12px]">{testimonial.testimonial}</div>
                                     <div className=' absolute flex flex-row items-center gap-2 bottom-4'>
-                                        <Image src={testimonial.image} alt={testimonial.name} width={30} height={30} className="w-10 h-10 border-2 border-neutral-800 rounded-full" />
+                                        <Image src={testimonial.image} alt={testimonial.name} width={20} height={20} className="w-7 h-7 border-2 border-neutral-800 rounded-full" />
                                         <div className="text w-full h-fit break-words whitespace-normal text-neutral-900 dark:text-neutral-300 font-mono text-[12px]">{testimonial.name}</div>
                                     </div>
                                 </div>

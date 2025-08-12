@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const Blogs = () => {
     const blogPosts = [
@@ -33,16 +36,16 @@ const Blogs = () => {
  dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
   [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
   mask-repeat-no-repeat mask-size-full"
-      />
-      <div className="h-[460px] z-20 w-[2px]  absolute opacity-20 right-5
+            />
+            <div className="h-[460px] z-20 w-[2px]  absolute opacity-20 right-5
  top-40  [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
  dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
   [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
   mask-repeat-no-repeat mask-size-full"
-      />
+            />
 
             <div className="text-[16px] mb-5 font-mono text-neutral-900 dark:text-neutral-200   bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">blogs because i dont't write</div>
-                    
+
             <div className="flex flex-col w-full  gap-4 ">
                 {blogPosts.map((post, index) => (
                     <div key={index} className="flex flex-col w-full gap-1 justify-center px-2 ">
@@ -54,10 +57,33 @@ const Blogs = () => {
                                 {post.date}
                             </div>
                         </div>
-
-                        <div className="w-[400px] h-[60px] text-[13px] text-neutral-500 dark:text-neutral-500  font-mono ">
-                            {post.description}
+                        <div className='flex flex-row justify-between'>
+                            <div className="w-[400px] h-[60px] text-[13px] text-neutral-500 dark:text-neutral-500  font-mono ">
+                                {post.description}
+                            </div>
+                            <div>
+                                <motion.button
+                                    initial={{
+                                        boxShadow: "0 1px 10px rgb(255,255,255,0.1)",
+                                    }}
+                                    whileHover={{
+                                        boxShadow: "0 1px 10px rgb(255,255,255,0.2)",
+                                        scale: 1.05
+                                    }}
+                                    
+                                    whileTap={{
+                                        scale:0.95
+                                    }}
+                                    transition={{
+                                        duration: 0.3,
+                                        ease: "easeInOut",
+                                    }}
+                                    className="text-[12px] font-mono text-cyan-600 dark:text-cyan-300  cursor-pointer  border-1 border-cyan-300 rounded-sm px-2 ">
+                                    Read
+                                </motion.button>
+                            </div>
                         </div>
+
 
                     </div>
                 ))}
