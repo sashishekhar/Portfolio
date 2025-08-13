@@ -7,7 +7,7 @@ export default function ContactMeLetter() {
   const strokeColor = "#d0d0d0"; // soft gray monochrome
 
   return (
-    <div className="flex  w-full mr-10 min-h-[60vh]">
+    <div className="flex  w-full mr-10 ">
       <motion.svg
         width="180"
         height="180"
