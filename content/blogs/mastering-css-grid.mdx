@@ -1,0 +1,35 @@
+---
+title: "Mastering CSS Grid Layout"
+description: "Unlock the power of CSS Grid to create complex, responsive layouts with ease and say goodbye to float-based hacks."
+date: "2025-09-02"
+icon: "icons/css.png"
+slug: "mastering-css-grid"
+---
+
+# Mastering CSS Grid Layout
+
+CSS Grid is a two-dimensional layout system that revolutionizes how we design web interfaces. It allows for granular control over both rows and columns, making it simpler than ever to build layouts that were previously difficult or impossible with CSS alone.
+
+## Key Concepts of Grid
+- **Grid Container:** The element on which `display: grid` is applied.
+- **Grid Item:** The direct children of the grid container.
+- **Grid Lines:** The dividing lines that make up the structure of the grid.
+- **Grid Tracks:** The space between two adjacent grid lines (columns or rows).
+
+## Why Use Grid?
+- **Simplified Layouts:** Drastically reduces the need for complex selectors and wrapper divs.
+- **True Two-Dimensional Control:** Unlike Flexbox, Grid excels at aligning items in both rows and columns simultaneously.
+- **Responsive by Design:** Features like the `fr` unit and `minmax()` function make creating fluid layouts intuitive.
+
+```css
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.grid-item {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}

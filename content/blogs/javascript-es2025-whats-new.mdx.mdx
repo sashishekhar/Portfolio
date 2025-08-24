@@ -1,0 +1,32 @@
+---
+title: "JavaScript ES2025: What's New?"
+description: "A look at the exciting new features and syntax enhancements proposed for the upcoming ECMAScript 2025 specification."
+date: "2026-02-05"
+icon: "icons/js.png"
+slug: "javascript-es2025-whats-new"
+---
+
+# JavaScript ES2025: What's New?
+
+The JavaScript language is constantly evolving, with the TC39 committee introducing new features annually. While ES2025 is still being finalized, several exciting proposals are making their way through the stages and are likely to be included. Let's explore some of the most anticipated additions.
+
+## Potential New Features
+- **The Pipeline Operator (`|>`):** This operator allows for a more readable way to chain function calls. It pipes the result of one expression as the first argument of the next.
+- **Pattern Matching:** A powerful control flow construct (similar to a `switch` statement on steroids) that allows you to match complex data structures.
+- **Temporal API:** A modern, improved API for working with dates and times, designed to replace the old and often confusing `Date` object.
+
+## Why This Matters
+- **Improved Readability:** New syntax like the pipeline operator can make complex logic much easier to follow.
+- **More Powerful Tools:** Features like pattern matching and the Temporal API solve common problems in a more robust and elegant way.
+
+```javascript
+// Hypothetical example using the Pipeline Operator proposal
+const double = (n) => n * 2;
+const increment = (n) => n + 1;
+
+// Without pipeline operator
+let result1 = increment(double(5)); // 11
+
+// With pipeline operator
+let result2 = 5 |> double |> increment; // 11
+console.log(`The result is: ${result2}`);

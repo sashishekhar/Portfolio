@@ -1,0 +1,37 @@
+---
+title: "From SASS to CSS Custom Properties"
+description: "An overview of CSS Custom Properties (Variables) and how they offer a powerful, native way to manage design tokens and themes."
+date: "2025-11-03"
+icon: "icons/css.png"
+slug: "modern-css-variables"
+---
+
+# From SASS to CSS Custom Properties
+
+For years, CSS preprocessors like SASS were the only way to use variables in our stylesheets. Today, CSS Custom Properties are natively supported in all modern browsers, offering dynamic, runtime-accessible variables that unlock new possibilities for theming and design systems.
+
+## Why Use CSS Variables?
+- **Dynamic:** Unlike SASS variables, they can be updated with JavaScript in real-time.
+- **Cascading Nature:** Variables are inherited and can be scoped to specific elements.
+- **Simplified Theming:** Easily create dark/light modes or other themes by changing a few variables on the root element.
+
+## How They Work
+- **Declaration:** Declare a variable using a name that begins with two dashes (e.g., `--main-color: #333;`).
+- **Usage:** Access the variable's value using the `var()` function (e.g., `color: var(--main-color);`).
+
+```css
+:root {
+  --primary-color: #007bff;
+  --text-color: #333;
+}
+
+/* Example of a dark theme */
+body.dark-theme {
+  --primary-color: #1e90ff;
+  --text-color: #f0f0f0;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}

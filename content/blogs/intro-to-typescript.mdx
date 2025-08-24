@@ -1,0 +1,28 @@
+---
+title: "An Introduction to TypeScript"
+description: "Discover how adding static types to JavaScript can help you catch errors early, improve code quality, and make your codebase more maintainable."
+date: "2025-09-21"
+icon: "icons/typescript.png"
+slug: "intro-to-typescript"
+---
+
+# An Introduction to TypeScript
+
+TypeScript is a "syntactic superset" of JavaScript, which means it adds features on top of JS, most notably a static type system. By enabling you to define types for your variables, functions, and objects, TypeScript helps prevent common bugs and improves the developer experience.
+
+## Core Benefits of TypeScript
+- **Static Type Checking:** Catch type-related errors during development, not in production.
+- **Improved Autocompletion:** Code editors can provide better suggestions and intelligence.
+- **Enhanced Readability:** Explicit types make code easier to understand and reason about for you and your team.
+
+## Getting Started
+- **Installation:** You can install TypeScript globally via npm: `npm install -g typescript`.
+- **Compilation:** TypeScript code is compiled into plain JavaScript using the `tsc` command, ensuring it can run in any browser or JavaScript environment.
+
+```typescript
+// A simple function with types
+function greet(person: string, date: Date): string {
+  return `Hello ${person}, today is ${date.toDateString()}!`;
+}
+
+console.log(greet("Brendan", new Date()));

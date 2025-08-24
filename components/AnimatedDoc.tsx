@@ -1,6 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
+import { filter } from "motion/react-client"
 import { useState } from "react"
 
 export function AnimatedDoc() {
@@ -62,7 +63,28 @@ export function AnimatedDoc() {
           className=""
         >
           {/* Document shadow */}
-          <rect x="18" y="18" width="105" height="145" rx="6" fill="rgba(255,255,255,0.1)"  />
+
+          <defs>
+            <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="2" stdDeviation="8" floodColor="rgba(255,255,255,0.25)" />
+            </filter>
+          </defs>
+
+          <motion.rect
+            x="20"
+            y="20"
+            width="100"
+            height="140"
+            rx="6"
+            fill="white"
+            stroke="#e2e8f0"
+            strokeWidth="2"
+            filter="url(#softShadow)"
+            className="fill-white dark:fill-neutral-100 stroke-neutral-200 dark:stroke-neutral-600"
+          />
+
+
+
 
           <motion.rect
             x="20"
@@ -92,7 +114,7 @@ export function AnimatedDoc() {
             d="M105 20 L105 35 L120 35 Z"
             className="fill-neutral-100 dark:fill-neutral-600  stroke-neutral-300 dark:stroke-neutal-500"
             strokeWidth="1"
-            whileHover={{ fill: "fill-neutral-200 dark:fill-neutral-500", stroke: "stroke-neutral-300 dark:stroke-neutral-500"  }}
+            whileHover={{ fill: "fill-neutral-200 dark:fill-neutral-500", stroke: "stroke-neutral-300 dark:stroke-neutral-500" }}
             transition={{ duration: 0.2 }}
           />
 

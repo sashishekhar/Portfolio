@@ -1,0 +1,41 @@
+---
+title: "Building APIs with Node.js and Express"
+description: "A beginner's guide to creating a simple, fast, and scalable REST API using the popular Node.js framework, Express."
+date: "2025-11-22"
+icon: "icons/nodejs.png"
+slug: "building-apis-with-nodejs"
+---
+
+# Building APIs with Node.js and Express
+
+Node.js allows you to run JavaScript on the server, making it a powerful choice for building back-end services. When combined with Express, a minimal and flexible web application framework, creating robust REST APIs becomes incredibly straightforward.
+
+## Core Concepts
+- **Routing:** Defining how an application responds to a client request to a particular endpoint (URI) and a specific HTTP request method (GET, POST, etc.).
+- **Middleware:** Functions that have access to the request object (`req`), the response object (`res`), and the next middleware function in the application’s request-response cycle.
+- **Request and Response:** Handling incoming data (`req.body`, `req.params`) and sending back a response (`res.send()`, `res.json()`).
+
+## Getting Started
+- **Setup:** Initialize a Node.js project (`npm init -y`) and install Express (`npm install express`).
+- **Create Server:** Write a few lines of code to create a server and have it listen on a port.
+
+```javascript
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.use(express.json()); // Middleware to parse JSON bodies
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.post('/api/users', (req, res) => {
+  const newUser = req.body;
+  // Logic to save the user...
+  res.status(201).json({ message: 'User created!', user: newUser });
+});
+
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
+});

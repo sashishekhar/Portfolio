@@ -7,9 +7,10 @@ interface CardProps {
   title: string;
   desc: string;
   link: string;
+  icon: string;
 }
 
-const Card: React.FC<CardProps> = ({ date, title, desc, link }) => {
+const Card: React.FC<CardProps> = ({ date, title, desc, link, icon }) => {
   return (
     <motion.div
       whileHover={{
@@ -30,13 +31,20 @@ const Card: React.FC<CardProps> = ({ date, title, desc, link }) => {
       {/* subtle glossy highlight */}
       <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none"></div>
 
+      <div className="absolute z-100 left-5 top-9 blur-3xl">
+        <img src={icon} alt="" className="w-12 h-12" />
+      </div>
+      <div className="absolute z-200 left-5 top-9">
+        <img src={icon} alt="" className="w-12 h-12" />
+      </div>
+
       {/* Date */}
-      <span className="text-sm absolute bottom-36 font-mono text-neutral-700 dark:text-neutral-300">
+      <span className="text-sm absolute bottom-42 font-mono text-neutral-700 dark:text-neutral-400">
         {date}
       </span>
 
       {/* Title */}
-      <h2 className="text-[13px] absolute bottom-28 font-semibold font-mono text-neutral-900 dark:text-neutral-200">
+      <h2 className="text-[13px] absolute top-35 font-semibold font-mono text-neutral-900 dark:text-neutral-200">
         {title}
       </h2>
 

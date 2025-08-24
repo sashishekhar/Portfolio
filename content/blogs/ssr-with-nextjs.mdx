@@ -1,0 +1,39 @@
+---
+title: "The Power of Server-Side Rendering with Next.js"
+description: "Explore the benefits of SSR, including improved SEO and faster initial page loads, and learn how Next.js makes it easy to implement."
+date: "2025-10-05"
+icon: "icons/nextjs2.png"
+slug: "ssr-with-nextjs"
+---
+
+# The Power of Server-Side Rendering with Next.js
+
+Single Page Applications (SPAs) are great, but they can suffer from poor SEO and slow initial load times. Server-Side Rendering (SSR) solves this by rendering the initial HTML on the server. Next.js, a popular React framework, provides a powerful and straightforward way to build SSR applications.
+
+## Why Choose SSR?
+- **Better SEO:** Search engine crawlers can easily index the fully rendered HTML page.
+- **Faster First Contentful Paint (FCP):** Users see content much faster because the browser receives a ready-to-render HTML file.
+- **Improved Performance on Slower Devices:** Less work is required from the client's device to render the initial view.
+
+## SSR in Next.js
+- **Page-Based Routing:** Every file in the `pages` directory automatically becomes a route.
+- **Data Fetching:** Use `getServerSideProps` to fetch data on each request and pass it as props to your page component.
+
+```javascript
+// pages/posts/[id].js
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  const res = await fetch(`https://api.example.com/posts/${id}`);
+  const post = await res.json();
+
+  return {
+    props: { post }, // will be passed to the page component as props
+  };
+}
+
+function PostPage({ post }) {
+  // Render post...
+  return <h1>{post.title}</h1>;
+}
+
+export default PostPage;

@@ -1,0 +1,30 @@
+---
+title: "Web Accessibility (a11y): Best Practices"
+description: "Learn essential accessibility practices to ensure your websites are usable by everyone, including people with disabilities."
+date: "2025-10-18"
+icon: "icons/wasm.png"
+slug: "accessibility-best-practices"
+---
+
+# Web Accessibility (a11y): Best Practices
+
+Web accessibility (often abbreviated as a11y) is the practice of designing and developing websites and applications that can be used by everyone. This is not just a moral obligation but also a legal requirement in many places. Creating accessible sites benefits all users.
+
+## Key Principles
+- **Semantic HTML:** Use HTML elements for their intended purpose. For example, use `<button>` for buttons and `<a>` for links.
+- **Image `alt` Text:** Provide descriptive alternative text for images so screen readers can describe them to visually impaired users.
+- **Keyboard Navigation:** Ensure all interactive elements can be accessed and operated using only a keyboard.
+
+## Quick Wins for a11y
+- **Color Contrast:** Make sure your text and background colors have sufficient contrast.
+- **Focus Indicators:** Don't remove the default `outline` on focused elements without providing a clear alternative.
+- **ARIA Roles:** Use Accessible Rich Internet Applications (ARIA) roles to add context to non-semantic elements when necessary.
+
+```html
+<button class="btn-primary" onclick="submitForm()">
+  Submit
+</button>
+
+<div class="btn-primary" onclick="submitForm()">
+  Submit
+</div>

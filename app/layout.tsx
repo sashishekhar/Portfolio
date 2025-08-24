@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import "prismjs/themes/prism-tomorrow.css";
 import "./globals.css";
 
 const geistMono = Geist_Mono({
