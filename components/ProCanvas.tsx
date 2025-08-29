@@ -4,6 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import CanvasReadmePage from './CanvasContent'
 
 const features = {
   Dashboard: { x: 20, y: 220 },   // initial position
@@ -112,6 +113,11 @@ const ProCanvas = () => {
             </div>
           </div>
         </div>
+
+      </div>
+
+      <div className="content mt-70 w-full">
+        <CanvasReadmePage />
 
       </div>
     </div>
