@@ -1,5 +1,6 @@
 "use client"
 import React from 'react';
+import { motion } from "framer-motion";
 import { useState } from 'react';
 import { ContactUs } from '@/components/ContactUs';
 import Navbar from '@/components/Navbar';
@@ -17,7 +18,7 @@ const projects = [
 
 export default function ContactPage() {
   const [activeProject, setActiveProject] = useState(projects[0]);
-
+  const [hoveredProject, setHoveredProject] = useState<typeof projects[0] | null>(null);
   return (
     <div className="relative min-h-screen w-full bg-transparent dark:bg-black overflow-hidden">
       {/* Dotted Background */}
@@ -39,18 +40,50 @@ export default function ContactPage() {
           <div style={{ zIndex: 100, width: '100%' }}>
             <Navbar />
           </div>
-          
-        <div className='w-full '>
-          <div className="buttons z-100 text-neutral-400 font-medium py-3 backdrop-blur-md bg-white/10 border-b-1 border-neutral-500 fixed top-25 rounded-md left-1/2 -translate-x-1/2 flex flex-row items-center justify-center font-mono px-4">
-            <button className='px-4' onClick={() => setActiveProject(projects[0])}>Canvas</button>
-            <button className='px-4' onClick={() => setActiveProject(projects[1])}>Network</button>
-            <button className='px-4' onClick={() => setActiveProject(projects[2])}>Vault</button>
-          </div>
 
-          <div className="projects mt-30 z-50 overflow-x-clip min-h-screen">
-            {activeProject.component}
+          <div className='w-full '>
+            <div className="buttons z-200 text-neutral-400 font-medium py-3 backdrop-blur-md bg-white/10 border-b border-neutral-500 fixed top-25 rounded-md left-1/2 -translate-x-1/2 flex flex-row items-center justify-center font-mono px-4">
+              {projects.map((project) => {
+                const isActive = activeProject.id === project.id;
+                const isHovered = hoveredProject?.id === project.id;
+
+                return (
+                  <button
+                    key={project.id}
+                    onClick={() => setActiveProject(project)}
+                    onMouseEnter={() => setHoveredProject(project)}
+                    onMouseLeave={() => setHoveredProject(null)}
+                    className={`relative px-3 py-1 transition-colors ${isActive ? "text-white" : "hover:text-neutral-200"
+                      }`}
+                  >
+                    {project.name}
+
+                    {/* Active underline */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="underline"
+                        className="absolute left-0 right-0 mx-1 -bottom-0 h-[2px] bg-white rounded"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+
+                    {/* Hover underline (when not active) */}
+                    {!isActive && isHovered && (
+                      <motion.div
+                        layoutId="underline"
+                        className="absolute left-0 right-0 mx-1 -bottom-0 h-[2px] bg-neutral-300 rounded"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="projects mt-30 z-50 overflow-x-clip min-h-screen">
+              {activeProject.component}
+            </div>
           </div>
-        </div>
 
 
 

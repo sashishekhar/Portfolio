@@ -1,53 +1,55 @@
 import React from "react";
 import Link from "next/link";
-import {motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { TechStackShowcase } from "./ProjectTechStack";
 
 const techItems = [
   { label: "Next.js", sublabel: "App Router" },
   { label: "TypeScript", sublabel: "Language" },
   { label: "Tailwind CSS", sublabel: "Utilities" },
-  { label: "Convex", sublabel: "Real-Time Updates" },
-  { label: "Kinde", sublabel: "Auth" },
+  { label: "ShadCN UI", sublabel: "UI Components" },
+  { label: "NeonDB", sublabel: "PostgreSQL" },
+  { label: "Clerk", sublabel: "Auth" },
+  { label: "Uploadthing", sublabel: "Image Upload" },
   { label: "Prisma", sublabel: "ORM" },
-  { label: "Vercel", sublabel: "Deploy" },
-  { label: "React", sublabel: "Framework" },
 ]
 
-export default function CanvasReadmePage() {
+export default function NetworkReadMePage() {
   return (
-    <div className="font-mono" style={{ maxWidth: "800px",  margin: "0 auto", padding: "20px" }}>
-      
-      
+    <div className="font-mono" style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
+
+
 
       <h2 className="text-2xl underline">Overview</h2>
-      
+
       <p className="mt-1 text-neutral-400">
-        The Canvas application is designed to be a powerful collaborative platform where users can create and manage documents alongside a whiteboard for drawing diagrams. Built from scratch using the Next.js framework, this application leverages modern web technologies to enhance productivity and facilitate teamwork.
+        Network is a full-stack social media application built with Next.js. It includes core features such as authentication, post creation with text and images, likes, comments, notifications, suggested users, profile updates, dark mode, and a responsive modern UI design.
       </p>
 
-
+      
 
       <h2 className="text-2xl mt-5 underline">Features</h2>
       <ul className="list-disc mt-1 text-neutral-400 list-inside pl-2">
-        <li>User Authentication: Users can log in via social accounts (Google, Facebook) or email.</li>
-        <li>Team Management: Create and manage teams for collaborative work.</li>
-        <li>Document Creation: Users can create, update, and save documents.</li>
-        <li>Whiteboard Canvas: A dedicated drawing space for visual collaboration.</li>
-        <li>Real-Time Updates: Leveraging Convex for real-time data handling.</li>
-        <li>Responsive Design: Fully responsive user interface optimized for desktop and mobile use.</li>
+        <li>User authentication (Email/Password and Google).</li>
+        <li>Post creation with text and image uploads.</li>
+        <li>Like and comment on posts.</li>
+        <li>Notifications for likes, comments, and follows.</li>
+        <li>Suggested users to follow.</li>
+        <li>Profile management (update and delete).</li>
+        <li>Dark mode support.</li>
+        <li>Responsive design for mobile and desktop.</li>
       </ul>
 
       <h2 className="text-2xl  mt-5 underline">Tech Stack Used</h2>
-    <div className="mt-2">
+      <div className="mt-2">
         <TechStackShowcase
-        items={techItems}
-        intervalMs={2600}
-        staggerMs={120}
-        transitionMs={500}
-        ariaLabel="Project technology showcase"
-      />
-    </div>
+          items={techItems}
+          intervalMs={2600}
+          staggerMs={120}
+          transitionMs={500}
+          ariaLabel="Project technology showcase"
+        />
+      </div>
 
       <h2 className="text-2xl mt-5 underline">Links</h2>
       <div className="buttons text-md mt-1 font-mono flex flex-row gap-2">
@@ -57,7 +59,7 @@ export default function CanvasReadmePage() {
         >
           <Link
             className="px-3 py-1 rounded-[4px] bg-white/20 backdrop-blur-md border border-white/30 shadow-lg text-white font-semibold hover:bg-white/30 transition-all inline-block"
-            href="https://canvas-eta-five.vercel.app/"
+            href="https://network-social-media.vercel.app/"
             target="_blank"
             rel="noreferrer"
           >
@@ -71,7 +73,7 @@ export default function CanvasReadmePage() {
         >
           <Link
             className="px-3 py-1 rounded-[4px] bg-white/20 backdrop-blur-md border border-white/30 shadow-lg text-white font-semibold hover:bg-white/30 transition-all inline-block"
-            href="https://github.com/sashishekhar/Canvas"
+            href="https://github.com/sashishekhar/Network_SocialMedia"
             target="_blank"
             rel="noreferrer"
           >
@@ -82,7 +84,7 @@ export default function CanvasReadmePage() {
 
 
 
-      
+
     </div>
   );
 }

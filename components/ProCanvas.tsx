@@ -93,7 +93,7 @@ const ProCanvas = () => {
 
           </div>
         </motion.div>
-        <div className="title relative mt-10 mb-10 z-100 ">
+        <div className="title relative mt-10 mb-10 z-50 ">
           <h1 className='text-4xl text-white font-mono font-medium ml-10 '>Canvas</h1>
           <p className='text-md text-neutral-300 leading-5 font-mono font-light ml-10 mt-1 w-1/5'>Documentation and Whiteboard</p>
 
