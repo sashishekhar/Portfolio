@@ -66,10 +66,27 @@ export function AnimatedDoc() {
 
           <defs>
             <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
-              <feDropShadow dx="0" dy="2" stdDeviation="8" floodColor="rgba(255,255,255,0.25)" />
+              {/* Default (light mode) shadow */}
+              <feDropShadow
+                dx="0"
+                dy="2"
+                stdDeviation="8"
+                floodColor="rgba(0,0,0,0.15)"
+              />
+            </filter>
+
+            <filter id="softShadowDark" x="-50%" y="-50%" width="200%" height="200%">
+              {/* Dark mode shadow */}
+              <feDropShadow
+                dx="0"
+                dy="2"
+                stdDeviation="8"
+                floodColor="rgba(255,255,255,0.25)"
+              />
             </filter>
           </defs>
 
+          {/* Apply correct filter depending on theme */}
           <motion.rect
             x="20"
             y="20"
@@ -79,26 +96,24 @@ export function AnimatedDoc() {
             fill="white"
             stroke="#e2e8f0"
             strokeWidth="2"
-            filter="url(#softShadow)"
             className="fill-white dark:fill-neutral-100 stroke-neutral-200 dark:stroke-neutral-600"
+            filter="url(#softShadow)" // default for light
           />
 
-
-
-
           <motion.rect
             x="20"
             y="20"
             width="100"
             height="140"
             rx="6"
-            fill="white"
             stroke="#e2e8f0"
             strokeWidth="2"
-            className="fill-white dark:fill-neutral-800  stroke-neutral-200 dark:stroke-neutral-600"
+            className="fill-white dark:fill-neutral-800 stroke-neutral-200 dark:stroke-neutral-600 
+             dark:[filter:url(#softShadowDark)] [filter:url(#softShadow)]"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           />
+
 
           <rect
             x="20"

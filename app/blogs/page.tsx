@@ -52,16 +52,16 @@ export default function ContactPage() {
         </div>
 
         {/* MIDDLE COLUMN */}
-        <div className="middle ml-2 relative rounded-[0px] dark:shadow-xl shadow-neutral-500/50 dark:border-l dark:border-r dark:border-neutral-600 border-neutral-300 bg-white dark:bg-neutral-900">
+        <div className="middle mx-1 relative rounded-[0px] dark:shadow-xl shadow-neutral-500/50 dark:border-l dark:border-r dark:border-neutral-600 border-neutral-300 bg-white dark:bg-neutral-900">
           <div style={{ zIndex: 100, width: '100%' }}>
             <Navbar />
           </div>
           <div className="flex flex-row  items-center mt-10 justify-around mb-6">
             <div className="flex flex-col gap-5 ">
-              <div className="text-[16px] font-mono text-neutral-900 dark:text-neutral-200 ml-5 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
+              <div className="text-[16px] font-mono text-neutral-800 dark:text-neutral-200 ml-5 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
                 dev notes & coffee !!
               </div>
-              <div className="text-[14px] font-mono ml-6 max-w-[500px] text-neutral-900 dark:text-neutral-400">
+              <div className="text-[14px] font-mono ml-6 max-w-[500px] text-neutral-700 dark:text-neutral-400">
                 Random write-ups on web development, coding hiccups, and those tiny wins that make building stuff fun.
               </div>
             </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Darkmode from "./Darkmode";
+import Link from "next/dist/client/link";
 
 const NAV_HEIGHT = 60;
 
@@ -19,7 +20,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Spacer so layout doesn’t jump */}
+      {/* layout jumpfix */}
       <div aria-hidden className={`h-[${NAV_HEIGHT}px]`} />
 
       <div className="w-full flex justify-center z-300 pointer-events-auto">
@@ -33,12 +34,12 @@ const Navbar = () => {
     flex items-center justify-between
 
     /* Blur fix */
-    bg-black/30 dark:bg-white/10 backdrop-blur-lg
+    bg-black/10 dark:bg-white/10 backdrop-blur-lg
 
     /* Ensure on top of everything */
     z-[9999] shadow-md
 
-    border-b border-neutral-300 dark:border-neutral-600
+    border-b border-neutral-500/40 dark:border-neutral-600
   "
           style={{
             willChange: "transform, background-color, box-shadow",
@@ -46,13 +47,15 @@ const Navbar = () => {
         >
           {/* Logo */}
           <div className="flex items-center">
-            <Image
-              className="rounded-full border-2 border-neutral-600 dark:border-neutral-300"
-              src="/profile.png"
-              alt="Logo"
-              width={40}
-              height={40}
-            />
+            <Link href="/">
+              <Image
+                className="rounded-full border-2 border-neutral-400 dark:border-neutral-300"
+                src="/profile.png"
+                alt="Logo"
+                width={40}
+                height={40}
+              />
+            </Link>
           </div>
 
           {/* Nav links */}
@@ -67,13 +70,13 @@ const Navbar = () => {
                 {hovered === link.name && (
                   <motion.div
                     layoutId="highlight"
-                    className="absolute inset-0 -inset-x-1 -inset-y-1 rounded-full bg-neutral-800 dark:bg-neutral-600 z-0"
+                    className="absolute inset-0 -inset-x-1 -inset-y-1 rounded-full bg-neutral-500 dark:bg-neutral-600 z-0"
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   />
                 )}
                 <a
                   href={link.href}
-                  className="relative z-10 p-2 font-mono text-neutral-800 dark:text-neutral-400 hover:text-neutral-100 dark:hover:text-neutral-100 transition"
+                  className="relative z-10 p-2 font-mono text-neutral-800 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition"
                 >
                   {link.name}
                 </a>

@@ -106,7 +106,7 @@ export default function Projects() {
 
   return (
     <div className="flex flex-col mb-20">
-      <div className="text-[16px] mb-10 font-mono text-neutral-900 dark:text-neutral-200 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
+      <div className="text-[16px] mb-10 font-mono text-neutral-800 dark:text-neutral-200 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
         Projects that convert to products
       </div>
 
@@ -135,10 +135,10 @@ export default function Projects() {
           {/* CARD */}
           <motion.div
             initial={{
-              boxShadow: "0 8px 30px rgb(255,255,255,0.1)",
+              boxShadow: "0 8px 30px rgb(0,0,0,0.2)",
             }}
             whileHover={{
-              boxShadow: "0 8px 30px rgb(255,255,255,0.2)",
+              boxShadow: "0 8px 30px rgb(0,0,0,0.3)",
             }}
             transition={{
               duration: 0.5,
@@ -156,7 +156,7 @@ export default function Projects() {
               >
                 {/* Blurred circle */}
                 <svg
-                  className="absolute top-[70px] left-[300px] blur-[100px] opacity-20 dark:opacity-60 z-0 text-black dark:text-white pointer-events-none"
+                  className="absolute top-[70px] left-[300px] blur-[100px] opacity-30 dark:opacity-60 z-0 text-black dark:text-white pointer-events-none"
                   width="400"
                   height="400"
                   aria-hidden
@@ -216,7 +216,7 @@ export default function Projects() {
                       variants={accent}
                     />
                     <a
-                      href={projects[currentIndex].link}
+                      href={`/projects`}
                       target="_blank"
                       className="text-cyan-600 dark:text-cyan-300 hover:text-cyan-800 dark:hover:text-cyan-100 font-mono text-sm"
                     >

@@ -74,12 +74,12 @@ function Testimonials() {
       mask-repeat-no-repeat mask-size-full"
             />
 
-            <div className="text-[16px] mb-10 font-mono text-neutral-900 dark:text-neutral-200 ml-8 mt-4  bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">appreciations</div>
+            <div className="text-[16px] mb-10 font-mono text-neutral-800 dark:text-neutral-200 ml-8 mt-4  bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">appreciations</div>
 
 
             <div className="w-[760px] h-[220px] mx-auto flex justify-center items-center  relative overflow-hidden">
-                <div className="w-[100px] absolute z-10 top-[50%] left-0 -translate-y-1/2 h-[210px] bg-gradient-to-r from-neutral-900 to-transparent pointer-events-none"></div>
-                <div className="w-[100px] absolute z-10 top-[50%] right-0 -translate-y-1/2 h-[210px] bg-gradient-to-l from-neutral-900 to-transparent pointer-events-none"></div>
+                <div className="w-[100px] absolute z-10 top-[50%] left-0 -translate-y-1/2 h-[210px] bg-gradient-to-r dark:from-neutral-900 from-white to-transparent pointer-events-none"></div>
+                <div className="w-[100px] absolute z-10 top-[50%] right-0 -translate-y-1/2 h-[210px] bg-gradient-to-l dark:from-neutral-900 from-white to-transparent pointer-events-none"></div>
 
                 <div className="overflow-hidden relative"
                     onMouseEnter={() => setPaused(true)}
@@ -93,12 +93,12 @@ function Testimonials() {
                         {[...testimonials, ...testimonials].map((testimonial, index) => (
                             <motion.div
                                 
-                                key={index} className="w-[250px] h-[170px] border-2 border-neutral-800 testimonial-card-inset-shadow    p-3 m-1 rounded-lg  transition text-left">
+                                key={index} className="w-[250px] h-[170px] border-1 dark:border-neutral-800 border-neutral-300 testimonial-card-inset-shadow   testimonial-card-shadow p-3 m-1 rounded-lg  transition text-left">
                                 <div className='flex h-full flex-col'>
-                                    <div className="text w-full h-fit break-words whitespace-normal text-neutral-900 dark:text-neutral-400 font-mono text-[12px]">{testimonial.testimonial}</div>
+                                    <div className="text w-full h-fit break-words whitespace-normal text-neutral-700 dark:text-neutral-400 font-mono text-[12px]">{testimonial.testimonial}</div>
                                     <div className=' absolute flex flex-row items-center gap-2 bottom-4'>
-                                        <Image src={testimonial.image} alt={testimonial.name} width={20} height={20} className="w-7 h-7 border-2 border-neutral-800 rounded-full" />
-                                        <div className="text w-full h-fit break-words whitespace-normal text-neutral-900 dark:text-neutral-300 font-mono text-[12px]">{testimonial.name}</div>
+                                        <Image src={testimonial.image} alt={testimonial.name} width={20} height={20} className="w-7 h-7  border-neutral-800 rounded-full" />
+                                        <div className="text w-full h-fit break-words whitespace-normal text-neutral-800 dark:text-neutral-300 font-mono text-[12px]">{testimonial.name}</div>
                                     </div>
                                 </div>
                             </motion.div>

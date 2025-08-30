@@ -11,11 +11,8 @@ type TechItem = {
 
 type TechStackShowcaseProps = {
   items: TechItem[]
-  /** Time each item stays visible before swapping to next. */
   intervalMs?: number
-  /** Initial stagger between adjacent columns' start times. */
   staggerMs?: number
-  /** Duration of the enter/exit animation. */
   transitionMs?: number
   className?: string
   ariaLabel?: string
@@ -52,12 +49,18 @@ type ColumnRotatorProps = {
   tickCount: number
 }
 
-function ColumnRotator({ items, colIndex, delayMs, transitionMs, reduced, tickCount }: ColumnRotatorProps) {
+function ColumnRotator({
+  items,
+  colIndex,
+  delayMs,
+  transitionMs,
+  reduced,
+  tickCount,
+}: ColumnRotatorProps) {
   const hasMultiple = items.length > 1
   const initialIndex = items.length ? colIndex % items.length : 0
   const [index, setIndex] = React.useState(initialIndex)
 
-  // advance one step on each parent tick, but stagger the update by delayMs per column
   const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   React.useEffect(() => {
     if (reduced || !hasMultiple) return
@@ -74,7 +77,6 @@ function ColumnRotator({ items, colIndex, delayMs, transitionMs, reduced, tickCo
         timeoutRef.current = null
       }
     }
-    // re-run on each tick to schedule the next staggered update
   }, [tickCount, delayMs, reduced, hasMultiple, items.length])
 
   const current = items[index]
@@ -82,28 +84,33 @@ function ColumnRotator({ items, colIndex, delayMs, transitionMs, reduced, tickCo
   return (
     <div
       className={cn(
-        // column viewport: single visible row, overflow hidden
-        "relative h-16 overflow-hidden rounded-md  bg-muted/40",
-        "border-border",
+        "relative h-16 overflow-hidden rounded-md border",
+        "bg-gray-100/60 dark:bg-muted/40",
+        "border-gray-300 dark:border-neutral-700",
       )}
       style={{ height: ITEM_HEIGHT_PX }}
     >
       {reduced ? (
-        // Reduced motion: show static item
-        <div className="flex h-16 items-center justify-center px-3 text-sm text-foreground">
+        <div className="flex h-16 items-center justify-center px-3 text-sm text-gray-800 dark:text-foreground">
           <div className="flex w-full max-w-xs items-center justify-center gap-2">
             <div
               aria-hidden
               className={cn(
-                "flex h-6 w-6 shrink-0 items-center justify-center rounded bg-white text-foreground/70",
-                "text-[11px] font-medium",
+                "flex h-6 w-6 shrink-0 items-center justify-center rounded text-[11px] font-medium",
+                "bg-gray-200 text-gray-700 dark:bg-white dark:text-foreground/70",
               )}
             >
               {getInitials(current?.label ?? "")}
             </div>
             <div className="min-w-0 text-center">
-              <span className="block truncate font-medium">{current?.label}</span>
-              {current?.sublabel ? <span className="block truncate text-foreground/60">{current.sublabel}</span> : null}
+              <span className="block truncate font-medium">
+                {current?.label}
+              </span>
+              {current?.sublabel ? (
+                <span className="block truncate text-gray-500 dark:text-foreground/60">
+                  {current.sublabel}
+                </span>
+              ) : null}
             </div>
           </div>
         </div>
@@ -117,12 +124,15 @@ function ColumnRotator({ items, colIndex, delayMs, transitionMs, reduced, tickCo
             exit={{ y: -24, opacity: 0 }}
             transition={{ duration: transitionMs / 1000, ease: "easeInOut" }}
           >
-            <div className="flex w-full max-w-xs items-center justify-center gap-2 text-sm text-foreground">
-              
+            <div className="flex w-full max-w-xs items-center justify-center gap-2 text-sm text-gray-800 dark:text-foreground">
               <div className="min-w-0 text-center">
-                <span className="block truncate font-medium">{current?.label}</span>
+                <span className="block truncate font-medium">
+                  {current?.label}
+                </span>
                 {current?.sublabel ? (
-                  <span className="block truncate text-foreground/60">{current?.sublabel}</span>
+                  <span className="block truncate text-gray-500 dark:text-foreground/60">
+                    {current?.sublabel}
+                  </span>
                 ) : null}
               </div>
             </div>
@@ -146,7 +156,10 @@ export function TechStackShowcase({
 
   const [reduced, setReduced] = React.useState(false)
   React.useEffect(() => {
-    const mq = typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)") : null
+    const mq =
+      typeof window !== "undefined"
+        ? window.matchMedia("(prefers-reduced-motion: reduce)")
+        : null
     const update = () => setReduced(Boolean(mq?.matches))
     update()
     mq?.addEventListener?.("change", update)
@@ -156,7 +169,6 @@ export function TechStackShowcase({
   const [tick, setTick] = React.useState(0)
   React.useEffect(() => {
     if (reduced) return
-    // tick immediately so col 0 animates right away and others follow by stagger
     setTick((t) => t + 1)
     const id = setInterval(() => setTick((t) => t + 1), intervalMs)
     return () => clearInterval(id)
@@ -166,13 +178,14 @@ export function TechStackShowcase({
     <section
       aria-label={ariaLabel}
       className={cn(
-        // container: neutral, minimal
-        "w-full rounded-md border border-neutral-800 bg-card shadow-[0_2px_10px_rgba(255,255,255,0.1)] p-4",
-        "border border-neutral-700",
+        "w-full rounded-md border p-4 shadow-sm",
+        "bg-white dark:bg-card",
+        "border-gray-300 dark:border-neutral-700",
+        "shadow-[0_2px_6px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_10px_rgba(255,255,255,0.1)]",
         className,
       )}
     >
-      <div className="grid grid-cols-4 gap-4 ">
+      <div className="grid grid-cols-4 gap-4">
         {columns.map((colItems, col) => (
           <ColumnRotator
             key={`col-${col}`}
@@ -193,6 +206,6 @@ function getInitials(text: string) {
   const parts = text.trim().split(/\s+/)
   if (!parts.length) return "•"
   const first = parts[0][0] ?? ""
-  const second = parts.length > 1 ? (parts[1][0] ?? "") : ""
+  const second = parts.length > 1 ? parts[1][0] ?? "" : ""
   return (first + second).toUpperCase()
 }

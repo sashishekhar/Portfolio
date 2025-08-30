@@ -24,28 +24,17 @@ const TimelineItemComponent = ({
   totalItems,
   lineProgress,
 }: { item: TimelineItem; index: number; totalItems: number; lineProgress: number }) => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const ref = useRef<HTMLDivElement | null>(null)
+  // Trigger when the card itself is on screen (safety net for last item)
+  const isInView = useInView(ref, { once: true, margin: "-50px 0px -50px 0px" })
   const [dotReached, setDotReached] = useState(false)
 
-  const dotPosition = (index + 0.7) / (totalItems + 1)
+  // Place the dot evenly across 0..1 and clamp a little below 1 so last item can trigger
+  const dotPosition = Math.min((index + 0.5) / totalItems, 0.98)
   const isLineAtDot = lineProgress >= dotPosition
-  const showCard = dotReached || isLineAtDot
 
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case "work":
-        return "bg-blue-500"
-      case "education":
-        return "bg-green-500"
-      case "project":
-        return "bg-purple-500"
-      case "achievement":
-        return "bg-orange-500"
-      default:
-        return "bg-gray-500"
-    }
-  }
+  // Show when the line reaches the dot OR the card is in view (either condition)
+  const showCard = dotReached || isLineAtDot || isInView
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -63,103 +52,98 @@ const TimelineItemComponent = ({
   }
 
   useEffect(() => {
-    if (isLineAtDot && !dotReached) {
-      setDotReached(true)
-    }
-  }, [isLineAtDot, dotReached, index])
+    if (isLineAtDot && !dotReached) setDotReached(true)
+  }, [isLineAtDot, dotReached])
 
   return (
     <div ref={ref} className="relative flex items-center">
+      {/* Timeline Dot */}
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={showCard ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-        transition={{
-          duration: 0.4,
-          type: "spring",
-          stiffness: 300,
-        }}
-        className="w-5 h-5 rounded-full relative z-10 flex-shrink-0 mr-8 border-2 border-background shadow-lg flex items-center justify-center bg-neutral-500 hover:bg-neutral-400 transition-colors cursor-pointer group"
+        transition={{ duration: 0.4, type: "spring", stiffness: 300 }}
+        className="w-3 h-3 rounded-full relative z-10 flex-shrink-0 mr-8 ml-[2.5px] border-2 border-background shadow-md flex items-center justify-center bg-neutral-400 dark:bg-neutral-500 hover:bg-neutral-300 dark:hover:bg-neutral-400 transition-colors cursor-pointer group"
       >
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: [1, 1.5, 1], opacity: [0.8, 0, 0.8] }}
           transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-          className="absolute inset-0 rounded-full bg-neutral-500 opacity-0 group-hover:opacity-100"
+          className="absolute inset-0 rounded-full bg-neutral-400 dark:bg-neutral-500 opacity-0 group-hover:opacity-100"
         />
       </motion.div>
 
+      {/* Timeline Card */}
       <motion.div
         initial={{ opacity: 0, x: 100, scale: 0.8 }}
         animate={showCard ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.8 }}
-        transition={{
-          duration: 0.8,
-          ease: [0.25, 0.46, 0.45, 0.94],
-          type: "spring",
-          stiffness: 100,
-        }}
+        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], type: "spring", stiffness: 100 }}
         className="flex-1 max-w-2xl"
       >
-        <motion.div
-          className="relative group cursor-pointer"
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl" />
+        <motion.div className="relative group cursor-pointer" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
+          {/* Glass Background (light & dark) */}
+          <div className="absolute inset-0 rounded-2xl border shadow-lg backdrop-blur-xl 
+                          bg-white/80 border-neutral-200 
+                          dark:bg-neutral-900/60 dark:border-neutral-700" />
 
+          {/* Hover shimmer */}
           <div className="absolute inset-0 rounded-2xl overflow-hidden">
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full"
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-neutral-700/30 -translate-x-full"
               animate={{ x: ["0%", "200%"] }}
-              transition={{
-                duration: 0.8,
-                ease: "easeInOut",
-                repeat: 0,
-              }}
+              transition={{ duration: 0.8, ease: "easeInOut", repeat: 0 }}
               style={{ display: "none" }}
               whileHover={{ display: "block" }}
             />
           </div>
 
+          {/* Content */}
           <div className="relative p-6 space-y-2">
             <div className="flex items-center justify-between">
               <div
                 className={`flex items-center font-mono gap-1 px-2 py-1 rounded-full ${
                   item.type === "work"
-                    ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                    ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                     : item.type === "education"
-                      ? "bg-green-500/10 text-green-400 border border-green-500/20"
+                      ? "bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20"
                       : item.type === "project"
-                        ? "bg-purple-500/10 text-purple-400 border border-purple-500/20"
-                        : "bg-orange-500/10 text-orange-400 border border-orange-500/20"
+                        ? "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20"
+                        : "bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20"
                 }`}
               >
                 {getTypeIcon(item.type)}
-                <span className="text-[12px] font-semibold uppercase font-mono tracking-wider">{item.type}</span>
+                <span className="text-[12px] font-semibold uppercase tracking-wider">{item.type}</span>
               </div>
-              <div className="flex text-[12px] items-center gap-1 text-muted-foreground">
+              <div className="flex text-[12px] items-center gap-1 text-neutral-500 dark:text-neutral-400">
                 <Calendar className="w-3 h-3" />
-                <span className=" font-mono">{item.year}</span>
+                <span className="font-mono">{item.year}</span>
               </div>
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-[16px] font-mono font-bold text-foreground leading-tight">{item.title}</h3>
+              <h3 className="text-[16px] font-mono font-bold text-neutral-900 dark:text-neutral-100 leading-tight">
+                {item.title}
+              </h3>
               {item.company && (
-                <div className="flex font-mono text-neutral-400 text-[14px] items-center gap-2 text-muted-foreground">
+                <div className="flex font-mono text-neutral-600 dark:text-neutral-400 text-[14px] items-center gap-2">
                   <MapPin className="w-4 h-4" />
                   <span className="font-medium">{item.company}</span>
                 </div>
               )}
             </div>
 
-            <p className="text-muted-foreground leading-normal font-mono text-neutral-200 text-[13px]">{item.description}</p>
+            <p className="leading-normal font-mono text-[13px] text-neutral-700 dark:text-neutral-300">
+              {item.description}
+            </p>
 
             {item.skills && item.skills.length > 0 && (
               <div className="flex font-mono flex-wrap gap-2 pt-1">
-                {item.skills.map((skill, skillIndex) => (
+                {item.skills.map((skill, i) => (
                   <span
-                    key={skillIndex}
-                    className="px-3 py-1 text-[12px] font-medium bg-muted/30 hover:bg-muted/50 rounded-full border border-muted/50 transition-colors duration-200"
+                    key={i}
+                    className="px-3 py-1 text-[12px] font-medium 
+                               bg-neutral-100 text-neutral-700 border border-neutral-200 
+                               dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700 
+                               rounded-full transition-colors duration-200"
                   >
                     {skill}
                   </span>
@@ -167,8 +151,9 @@ const TimelineItemComponent = ({
               </div>
             )}
 
+            {/* Soft colored accent */}
             <div
-              className={`absolute top-0 right-0 w-20 h-20 rounded-full opacity-10 ${
+              className={`absolute top-0 right-0 w-20 h-20 rounded-full opacity-10 blur-2xl ${
                 item.type === "work"
                   ? "bg-blue-500"
                   : item.type === "education"
@@ -176,7 +161,7 @@ const TimelineItemComponent = ({
                     : item.type === "project"
                       ? "bg-purple-500"
                       : "bg-orange-500"
-              } blur-2xl`}
+              }`}
             />
           </div>
         </motion.div>
@@ -187,33 +172,38 @@ const TimelineItemComponent = ({
 
 export default function Timeline({ items }: TimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Give more headroom so progress can reach ~1.0 before you hit the page bottom
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"],
+    offset: ["start 0.5", "end 0.5"],
   })
 
-  const totalHeight = items.length * 180 + 100
+  // Progressed line height and numeric progress
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
   const lineProgress = useTransform(scrollYProgress, [0, 1], [0, 1])
   const [currentProgress, setCurrentProgress] = useState(0)
 
   useEffect(() => {
-    const unsubscribe = lineProgress.onChange((latest) => {
-      setCurrentProgress(latest)
-    })
+    const unsubscribe = lineProgress.onChange((v) => setCurrentProgress(v))
     return unsubscribe
   }, [lineProgress])
 
-  return (
-    <div ref={containerRef} className="relative w-xl mx-auto py-12">
-      <div className="absolute left-2 top-0 w-0.5 bg-border/30" style={{ height: `${totalHeight}px` }} />
+  // A generous line length; purely visual, doesn't affect scroll
+  const totalHeight = items.length * 260
 
+  return (
+    <div ref={containerRef} className="relative w-xl mx-auto py-12 pb-24">
+      {/* Base timeline line */}
+      <div
+        className="absolute left-2 top-10 w-0.5 bg-neutral-300 rounded-full dark:bg-neutral-700"
+        style={{ height: `${totalHeight}px` }}
+      />
+
+      {/* Progress line */}
       <motion.div
-        className="absolute left-2 top-0 w-0.5 bg-gradient-to-b from-primary via-primary/80 to-primary/60 origin-top shadow-lg"
-        style={{
-          height: lineHeight,
-          maxHeight: `${totalHeight}px`,
-        }}
+        className="absolute left-2 top-50 w-0.5 bg-gradient-to-b from-primary via-primary/80 to-primary/60  rounded-full shadow-lg"
+        style={{ height: lineHeight, maxHeight: `${totalHeight}px` }}
       />
 
       <div className="space-y-10">

@@ -12,24 +12,25 @@ const techItems = [
   { label: "Clerk", sublabel: "Auth" },
   { label: "Uploadthing", sublabel: "Image Upload" },
   { label: "Prisma", sublabel: "ORM" },
-]
+];
 
 export default function NetworkReadMePage() {
   return (
-    <div className="font-mono" style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
-
-
-
+    <div
+      className="font-mono text-neutral-800 dark:text-neutral-200"
+      style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}
+    >
       <h2 className="text-2xl underline">Overview</h2>
 
-      <p className="mt-1 text-neutral-400">
-        Network is a full-stack social media application built with Next.js. It includes core features such as authentication, post creation with text and images, likes, comments, notifications, suggested users, profile updates, dark mode, and a responsive modern UI design.
+      <p className="mt-1 text-neutral-600 dark:text-neutral-400">
+        Network is a full-stack social media application built with Next.js. It
+        includes core features such as authentication, post creation with text
+        and images, likes, comments, notifications, suggested users, profile
+        updates, dark mode, and a responsive modern UI design.
       </p>
 
-      
-
       <h2 className="text-2xl mt-5 underline">Features</h2>
-      <ul className="list-disc mt-1 text-neutral-400 list-inside pl-2">
+      <ul className="list-disc mt-1 text-neutral-600 dark:text-neutral-400 list-inside pl-2">
         <li>User authentication (Email/Password and Google).</li>
         <li>Post creation with text and image uploads.</li>
         <li>Like and comment on posts.</li>
@@ -40,7 +41,7 @@ export default function NetworkReadMePage() {
         <li>Responsive design for mobile and desktop.</li>
       </ul>
 
-      <h2 className="text-2xl  mt-5 underline">Tech Stack Used</h2>
+      <h2 className="text-2xl mt-5 underline">Tech Stack Used</h2>
       <div className="mt-2">
         <TechStackShowcase
           items={techItems}
@@ -58,7 +59,15 @@ export default function NetworkReadMePage() {
           whileTap={{ scale: 0.95, y: 0 }}
         >
           <Link
-            className="px-3 py-1 rounded-[4px] bg-white/20 backdrop-blur-md border border-white/30 shadow-lg text-white font-semibold hover:bg-white/30 transition-all inline-block"
+            className="px-3 py-1 rounded-[4px] 
+              bg-black/10 dark:bg-white/20 
+              backdrop-blur-md 
+              border border-black/20 dark:border-white/30 
+              shadow-md dark:shadow-lg 
+              text-black dark:text-white 
+              font-semibold 
+              hover:bg-black/20 dark:hover:bg-white/30 
+              transition-all inline-block"
             href="https://network-social-media.vercel.app/"
             target="_blank"
             rel="noreferrer"
@@ -72,7 +81,15 @@ export default function NetworkReadMePage() {
           whileTap={{ scale: 0.95, y: 0 }}
         >
           <Link
-            className="px-3 py-1 rounded-[4px] bg-white/20 backdrop-blur-md border border-white/30 shadow-lg text-white font-semibold hover:bg-white/30 transition-all inline-block"
+            className="px-3 py-1 rounded-[4px] 
+              bg-black/10 dark:bg-white/20 
+              backdrop-blur-md 
+              border border-black/20 dark:border-white/30 
+              shadow-md dark:shadow-lg 
+              text-black dark:text-white 
+              font-semibold 
+              hover:bg-black/20 dark:hover:bg-white/30 
+              transition-all inline-block"
             href="https://github.com/sashishekhar/Network_SocialMedia"
             target="_blank"
             rel="noreferrer"
@@ -81,10 +98,6 @@ export default function NetworkReadMePage() {
           </Link>
         </motion.div>
       </div>
-
-
-
-
     </div>
   );
 }

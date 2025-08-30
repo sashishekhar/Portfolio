@@ -49,19 +49,15 @@ function GlobalTimeoutProvider({ children }: { children: ReactNode }) {
   const callbacksRef = useRef<(() => void)[]>([])
 
   const resetGlobalTimeout = (callback: () => void) => {
-    // Clear existing timeout
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
 
-    // Add callback to list if not already present
     if (!callbacksRef.current.includes(callback)) {
       callbacksRef.current.push(callback)
     }
 
-    // Set new timeout for 3 seconds
     timeoutRef.current = setTimeout(() => {
-      // Execute all callbacks (reset all cards)
       callbacksRef.current.forEach((cb) => cb())
     }, 3000)
   }
@@ -83,11 +79,20 @@ export function PhotoCardStack() {
   return (
     <GlobalTimeoutProvider>
       <div className="relative w-full h-[400px] flex items-center justify-center">
-        <div className=" absolute z--100 font-mono dragtext text-[200px] tracking-wider  text-neutral-800  font-semibold">
-            drag
+        {/* Subtle background drag text */}
+        <div className="absolute z--10 font-mono dragtext text-[200px] tracking-wider font-semibold 
+                        text-neutral-200 dark:text-neutral-800 select-none pointer-events-none">
+          drag
         </div>
+
+        {/* Photo cards */}
         {photos.map((photo, index) => (
-          <PhotoCard key={photo.id} photo={photo} index={index} totalCards={photos.length} />
+          <PhotoCard
+            key={photo.id}
+            photo={photo}
+            index={index}
+            totalCards={photos.length}
+          />
         ))}
       </div>
     </GlobalTimeoutProvider>

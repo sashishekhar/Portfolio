@@ -119,10 +119,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { filter, style } from 'motion/react-client';
+import { useTheme } from "next-themes";
 
 const DominoKeys = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
+  const { systemTheme, theme, setTheme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
   const techStack = [
         { title: 'JavaScript', icon: '/icons/js.png' },
     { title: 'TypeScript', icon: '/icons/typescript.png' },
@@ -146,21 +148,22 @@ const DominoKeys = () => {
 
   return (
     <div className="flex flex-col gap-1 px-4 w-full h-[350px] dark:bg-neutral-900 bg-white overflow-x-auto relative no-scrollbar">
-      <div className="text-[16px] font-mono text-neutral-900 dark:text-neutral-200 ml-5 mb-5 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
+      <div className="text-[16px] font-mono text-neutral-800 dark:text-neutral-200 ml-5 mb-5 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
         my keystrokes
       </div>
-      <motion.div 
-      initial={{
-        boxShadow : '0 8px 30px rgb(255,255,255,0.1)'
-      }}
-      whileHover={{
-        boxShadow : '0 8px 30px rgb(255,255,255,0.2)'
-      }}
-      transition={{
-        duration: 0.5,
-        ease: 'easeInOut'
-      }}
-      className='absolute inset-0 mx-auto mt-23 z-0 w-[600px] h-[160px]    border-1 border-neutral-600 bg-transparent rounded-md '>
+      <motion.div
+        initial={{
+          boxShadow: currentTheme === "dark" ? "0 8px 30px rgb(255,255,255,0.1)" : "0 8px 30px rgb(0,0,0,0.1)"
+        }}
+        whileHover={{
+          boxShadow: currentTheme === "dark" ? "0 8px 30px rgb(255,255,255,0.2)" : "0 8px 30px rgb(0,0,0,0.2)"
+        }}
+        transition={{
+          duration: 0.3,
+          ease: 'easeInOut'
+        }}
+        className='absolute inset-0 mx-auto mt-23 z-0 w-[600px] h-[160px]    border-1 border-neutral-300 dark:border-neutral-600 bg-transparent rounded-md '
+      >
 
       </motion.div>
 
@@ -176,7 +179,7 @@ const DominoKeys = () => {
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               // THE FIX: Added p-1.5 (6px padding) to create a thicker border
-              className={`relative flex justify-center items-center overflow-hidden rounded-full ${isHovered ? 'keystroke-inset-shadow' : ''} cursor-pointer dark:bg-neutral-800  bg-black/5 p-[2px]`}
+              className={`relative flex justify-center items-center overflow-hidden rounded-full ${isHovered ? 'keystroke-inset-shadow' : ''} cursor-pointer dark:bg-neutral-800  bg-neutral-500 p-[2px]`}
               initial={{ width: '1rem', height: '2rem' }}
               animate={{
                 width: isHovered ? '6rem' : '1rem',
@@ -200,7 +203,7 @@ const DominoKeys = () => {
                 />
               )}
 
-              <div className="relative z-10 flex h-full w-full items-center justify-center rounded-full dark:bg-neutral-800 bg-neutral-200">
+              <div className="relative z-100 flex h-full w-full items-center justify-center rounded-full dark:bg-neutral-800 bg-neutral-500">
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div

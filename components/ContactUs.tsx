@@ -1,12 +1,14 @@
-'use client';
+"use client";
 
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
-import { easeIn, easeInOut, easeOut, motion } from 'framer-motion';
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 
 export const ContactUs = () => {
   const form = useRef<HTMLFormElement>(null);
   const [focused, setFocused] = useState(false);
+  const { theme } = useTheme();
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,55 +16,64 @@ export const ContactUs = () => {
 
     emailjs
       .sendForm(
-        'service_2zcisme',
-        'template_tbkgz0k',
+        "service_2zcisme",
+        "template_tbkgz0k",
         form.current,
-        'GKoBY2_bqwIi9WSGd'
+        "GKoBY2_bqwIi9WSGd"
       )
       .then(
         () => {
-          console.log('SUCCESS!');
+          console.log("SUCCESS!");
           form.current?.reset();
         },
         (error) => {
-          console.error('FAILED...', error);
+          console.error("FAILED...", error);
         }
       );
   };
 
-  // subtle -> stronger shadow + slight lift when focused
-  const cardVariants = {
+  // Different shadows for light vs dark mode
+  const lightShadows = {
     idle: {
-      boxShadow: '0 2px 5px rgba(255,255,255,0.06)',
-    
+      boxShadow: "0 1px 10px rgba(0,0,0,0.2)",
       scale: 1,
     },
     focused: {
-      boxShadow: '0 3px 10px rgba(255,255,255,0.12)',
-    
+      boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
       scale: 1.002,
     },
     hover: {
-      boxShadow: '0 3px 10px rgba(255,255,255,0.08)',
-    
+      boxShadow: "0 3px 6px rgba(0,0,0,0.15)",
       scale: 1.001,
     },
   };
 
+  const darkShadows = {
+    idle: {
+      boxShadow: "0 2px 5px rgba(255,255,255,0.06)",
+      scale: 1,
+    },
+    focused: {
+      boxShadow: "0 3px 10px rgba(255,255,255,0.12)",
+      scale: 1.002,
+    },
+    hover: {
+      boxShadow: "0 3px 10px rgba(255,255,255,0.12)",
+      scale: 1.001,
+    },
+  };
+
+  const cardVariants = theme === "light" ? lightShadows : darkShadows;
+
   return (
     <motion.div
       initial="idle"
-      animate={focused ? 'focused' : 'idle'}
+      animate={focused ? "focused" : "idle"}
       whileHover="hover"
       variants={cardVariants}
-      transition={{ duration: 0.3, ease: easeIn }}
-      className="w-[85%] mx-auto rounded-md p-10 bg-white dark:bg-neutral-900 border-t-1 border-neutral-300 dark:border-neutral-600/20 shadow-lg"
-      aria-hidden={false}
+      transition={{ duration: 0.25 }}
+      className="w-[85%] mx-auto rounded-md p-10 bg-white dark:bg-neutral-900 border border-neutral-300/70 dark:border-neutral-600/20"
     >
-      {/* onFocus/onBlur on form use React's focus-in/out delegation:
-          - onFocus fires when any child receives focus
-          - onBlur fires when focus leaves the whole form
-      */}
       <form
         ref={form}
         onSubmit={sendEmail}
@@ -71,7 +82,6 @@ export const ContactUs = () => {
         onBlur={() => setFocused(false)}
       >
         <div className="flex flex-col sm:flex-row gap-3">
-          {/* Name */}
           <div className="flex-1 h-[45px] flex items-center border border-neutral-400/50 rounded-md">
             <input
               name="user_name"
@@ -81,7 +91,6 @@ export const ContactUs = () => {
             />
           </div>
 
-          {/* Email */}
           <div className="flex-1 h-[45px] flex items-center border border-neutral-400/50 rounded-md">
             <input
               name="user_email"
@@ -93,7 +102,6 @@ export const ContactUs = () => {
           </div>
         </div>
 
-        {/* Message */}
         <div className="border border-neutral-400/50 rounded-md">
           <textarea
             name="message"
@@ -103,11 +111,10 @@ export const ContactUs = () => {
           />
         </div>
 
-        {/* Actions */}
         <div className="flex gap-2">
           <button
             type="submit"
-            className="w-full h-[45px] p-1 bg-neutral-200/50 dark:bg-neutral-700/30 font-mono text-neutral-900 dark:text-neutral-300 rounded-md button-inset-shadow transition-all duration-200 hover:translate-y-[-1px] active:translate-y-[0px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/50 dark:focus-visible:ring-neutral-600/50"
+            className="w-full h-[45px] p-1 bg-neutral-200/70 dark:bg-neutral-700/30 font-mono text-neutral-900 dark:text-neutral-300 rounded-md transition-all duration-200 hover:translate-y-[-1px] active:translate-y-[0px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/40 dark:focus-visible:ring-neutral-600/50"
           >
             Send
           </button>

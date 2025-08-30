@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowTurnDownIcon } from "hugeicons-react";
+import { ArrowDown } from "lucide-react";
 
 type BlogMeta = {
   title: string;
@@ -54,7 +57,7 @@ const Blogs = () => {
         mask-repeat-no-repeat mask-size-full"
       />
 
-      <div className="text-[16px] mb-5 font-mono text-neutral-900 dark:text-neutral-200 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
+      <div className="text-[16px] mb-5 font-mono text-neutral-800 dark:text-neutral-200 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
         blogs because i don&apos;t write
       </div>
 
@@ -65,10 +68,10 @@ const Blogs = () => {
             className="flex flex-col w-full gap-1 justify-center px-2"
           >
             <div className="flex flex-row justify-between items-center gap-10">
-              <div className="text-[20px] font-medium font-mono text-neutral-900 dark:text-neutral-300">
+              <div className="text-[20px] font-medium font-mono text-neutral-800 dark:text-neutral-300">
                 {blog.title}
               </div>
-              <div className="text-[12px] font-medium font-mono text-neutral-900 dark:text-neutral-300">
+              <div className="text-[12px] font-medium font-mono text-neutral-800 dark:text-neutral-300">
                 {blog.date}
               </div>
             </div>
@@ -80,10 +83,10 @@ const Blogs = () => {
               <div>
                 <motion.button
                   initial={{
-                    boxShadow: "0 1px 10px rgb(255,255,255,0.1)",
+                    boxShadow: "0 1px 10px rgba(85,221,255,0.4)",
                   }}
                   whileHover={{
-                    boxShadow: "0 1px 10px rgb(255,255,255,0.2)",
+                    boxShadow: "0 1px 10px rgba(85,221,255,0.4)",
                     scale: 1.05,
                   }}
                   whileTap={{
@@ -102,6 +105,21 @@ const Blogs = () => {
           </div>
         ))}
       </div>
+
+      <motion.div 
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.3, ease: "easeInOut" },
+      }}
+      className="w-full flex justify-center mt-5">
+
+        <Link
+          href="/blogs"
+          className="text-[12px] font-mono  text-neutral-600 dark:text-neutral-300 cursor-pointer  rounded-sm px-2"
+        >
+          <ArrowDown className="inline h-6 w-6 shadow-2xl mr-1" />
+        </Link>
+      </motion.div>
     </div>
   );
 };

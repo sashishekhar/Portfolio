@@ -128,8 +128,11 @@ export function PhotoCard({ photo, index, totalCards }: PhotoCardProps) {
           damping: 30,
         }}
       >
-        <div className="bg-white border-1 border-neutral-700 dark:bg-neutral-800 rounded-2xl shadow-2xl p-2 w-48 h-60 flex flex-col">
-          <div className="relative  flex-1 rounded-xl overflow-hidden bg-gray-100 dark:bg-neutral-800 shadow-[5px_0px_5px_rgba(255,255,255,0.1),-5px_-5px_5px_rgba(255,255,255,0.05),-5px_5px_5px_rgba(255,255,255,0.1),5px_-5px_5px_rgba(255,255,255,0.05)] ">
+        <div className="bg-white border border-gray-200 dark:border-neutral-700 
+                dark:bg-neutral-800 rounded-2xl shadow-lg p-2 w-48 h-60 flex flex-col transition-colors">
+          <div className="relative flex-1 rounded-xl overflow-hidden 
+                  bg-gray-50 dark:bg-neutral-800 
+                  shadow-[0_2px_6px_rgba(0,0,0,0.08)]">
             <Image
               src={photo.src || "/placeholder.svg"}
               alt={photo.alt}
@@ -139,14 +142,15 @@ export function PhotoCard({ photo, index, totalCards }: PhotoCardProps) {
             />
           </div>
           <div className="mt-2 text-center">
-            <h3 className="text-lg font-mono font-semibold text-gray-800 dark:text-neutral-200">{photo.title}</h3>
-            
+            <h3 className="text-base font-mono font-semibold text-gray-800 dark:text-gray-200">
+              {photo.title}
+            </h3>
           </div>
         </div>
 
         {(!isDragging || isReturning) && (
           <motion.div
-            className="absolute -top-2 -right-2 w-4 h-4 bg-blue-500 rounded-full"
+            className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400 dark:bg-blue-500 rounded-full"
             animate={{
               scale: isReturning ? [1, 1.5, 1] : [1, 1.2, 1],
               opacity: isReturning ? [0.8, 1, 0.8] : [0.7, 1, 0.7],
@@ -158,6 +162,7 @@ export function PhotoCard({ photo, index, totalCards }: PhotoCardProps) {
             }}
           />
         )}
+
       </motion.div>
     </motion.div>
   )
