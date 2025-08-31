@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Darkmode from "./Darkmode";
 import Link from "next/dist/client/link";
+import { Menu } from "lucide-react";
 
 const NAV_HEIGHT = 60;
 
@@ -17,20 +18,22 @@ const Navbar = () => {
   ];
 
   const [hovered, setHovered] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
       {/* layout jumpfix */}
       <div aria-hidden className={`h-[${NAV_HEIGHT}px]`} />
 
-      <div className="w-full flex justify-center z-300 pointer-events-auto">
+      <div className="  flex  justify-between z-300 pointer-events-auto">
         <motion.nav
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 120, damping: 20 }}
           className="
     fixed top-3 left-1/2 -translate-x-1/2
-    w-[800px] h-[60px] px-3 rounded-full
+    w-full max-w-[800px]
+ h-[60px] px-3 rounded-full
     flex items-center justify-between
 
     /* Blur fix */
@@ -59,7 +62,7 @@ const Navbar = () => {
           </div>
 
           {/* Nav links */}
-          <div className="flex flex-row items-center">
+          <div className=" hidden sm:flex flex-row  items-center">
             {links.map((link) => (
               <div
                 key={link.name}
@@ -83,11 +86,40 @@ const Navbar = () => {
               </div>
             ))}
 
-            <div className="pl-3">
-              <Darkmode />
-            </div>
+            
           </div>
+          <div className="flex flex-row">
+            <button onClick={() => setOpen(!open)} className="sm:hidden dark:text-neutral-200 text-neutral-800 mr-2">
+            <Menu />
+          </button>
+          <Darkmode />
+          </div>
+          
+
         </motion.nav>
+        {
+          open && (
+            <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="fixed top-20 right-3 sm:hidden  w-full max-w-[130px] rounded-md flex flex-col items-start
+     justify-between
+    font-mono
+    border-b border-neutral-500/40 dark:border-neutral-600
+    /* Blur fix */
+    bg-black/10 dark:bg-white/10 backdrop-blur-lg shadow-md px-4 py-2 z-150">
+              <ul>
+                {links.map((link) => (
+                  <li className="dark:text-neutral-200 text-neutral-800" key={link.name}>
+                    <Link href={link.href}>{link.name}</Link>
+                  </li>
+                ))}
+              </ul>
+              
+            </motion.div>
+          )
+        }
       </div>
     </>
   );

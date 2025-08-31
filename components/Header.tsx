@@ -6,14 +6,14 @@ import { motion } from 'motion/react'
 
 const Header = () => {
   return (
-    <div className='flex mt-10 relative flex-row justify-between  h-[180px]  rounded-[20px] p-4'>
-      <div className="w-[570px] absolute opacity-20 h-[1.4px]  top-[61px] left-[-20px] z-10
+    <div className='flex mt-10 relative flex-row justify-between  h-[180px]  rounded-[20px] p-2 sm:p-4'>
+      <div className="w-[300px] sm:w-[570px] absolute opacity-20 h-[1.4px] top-[87px] sm:top-[61px] left-[-20px] z-10
       [background-image:repeating-linear-gradient(to_right,_black_0_6px,_transparent_4px_12px)]
       dark:[background-image:repeating-linear-gradient(to_right,_white_0_6px,_transparent_4px_12px)]
       [mask-image:linear-gradient(to_right,_transparent,_black_10%,_black_80%,_transparent)]
       mask-repeat-no-repeat mask-size-full"
       />
-      <div className="h-[190px] z-20 w-[2px]  absolute opacity-20 left-2
+      <div className="h-[190px] z-20 w-[2px]  absolute opacity-20 left-0 sm:left-2
  top-2  [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
  dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
   [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
@@ -22,7 +22,7 @@ const Header = () => {
       <div className='relative z-20'>
         <div className="absolute z-0 left-[410px] scale-85 opacity-30 bg-transparent -top-[35px]">
           <motion.svg
-            className="dark:stroke-white  stroke-black"
+            className="hidden md:block dark:stroke-white   stroke-black"
             width="384"
             height="129"
             scale={0.8}
@@ -50,15 +50,15 @@ const Header = () => {
 
 
         </div>
-        <div className="flex  flex-col gap-2 ">
-          <div className="nameSalutation flex gap-4 flex-row items-center">
-            <div className='text-[30px]  text-shadow-xs text-shadow-neutral-400 text-neutral-800 dark:text-neutral-100 tracking-tighter   font-bold font-mono'>Sashi Sekhar Singh</div>
+        <div className="flex  flex-col gap-4 sm:gap-2 ">
+          <div className="nameSalutation flex gap-1 mt-2 sm:mt-0 sm:gap-4 flex-col sm:flex-row items:start sm:items-center">
+            <div className='text-[22px] sm:text-[30px]  text-shadow-xs text-shadow-neutral-400 text-neutral-800 dark:text-neutral-100 tracking-tighter   font-bold font-mono'>Sashi Sekhar Singh</div>
             <div className='z-10'><SalutationButton /></div>
           </div>
 
 
           <div className='subheading'>
-            <div className='text-[14px] text-neutral-500  font-mono w-[500px] tracking-tight'>
+            <div className='text-[14px] text-neutral-500  w-full max-w-[500px] font-mono tracking-tight'>
               They call me Sketch. What kind of name is that? Just a kid with a wrench in one hand and a wireframe in the other—designing what tomorrow runs on.
             </div>
           </div>
