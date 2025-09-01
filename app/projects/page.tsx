@@ -21,26 +21,15 @@ export default function ContactPage() {
   const [hoveredProject, setHoveredProject] = useState<typeof projects[0] | null>(null);
 
   return (
-    <div className="relative min-h-screen w-full bg-white dark:bg-black overflow-hidden">
+    <div className="relative min-h-screen w-full bg-transparent dark:bg-black overflow-hidden">
       {/* Dotted Background */}
-      <div className="absolute inset-0 bg-[url('/bgTexture.svg')] opacity-40 dark:invert dark:opacity-70 bg-repeat bg-center -z-10"></div>
+      <div className="absolute inset-0 bg-[url('/bgTexture.svg')] dark:invert dark:opacity-30 opacity-50  bg-repeat bg-center z--10"></div>
 
-      {/* Grid layout */}
-      <div className="main grid grid-cols-[2.25fr_5.5fr_2.25fr] w-full ">
-
-        {/* LEFT COLUMN with spacer */}
-        <div className="relative">
-          <div className="w-[280px] h-[242px] ml-[50px]" />
-        </div>
-
+      {/* Single column layout */}
+      <div className="main w-full flex justify-center">
         {/* MIDDLE COLUMN (main content) */}
-        <div className="middle mx-auto relative 
-          shadow-[0px_4px_12px_rgba(0,0,0,0.08)] 
-          dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.05),0px_4px_8px_rgba(255,255,255,0.04)] 
-          border-l border-r border-gray-200 dark:border-neutral-700 
-          bg-white dark:bg-neutral-900">
+        <div className="middle w-full max-w-[820px] mx-auto relative rounded-[0px] shadow-[2px_0px_5px_rgba(0,0,0,0.2),-2px_0px_5px_rgba(0,0,0,0.2)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_1px_1px_-0.5px_rgba(255,255,255,0.06),0px_3px_3px_-1.5px_rgba(255,255,255,0.06),_0px_6px_6px_-3px_rgba(255,255,255,0.06),0px_12px_12px_-6px_rgba(255,255,255,0.06),0px_24px_24px_-12px_rgba(255,255,255,0.06)] dark:border-l dark:border-r dark:border-neutral-600 border-neutral-300 bg-white dark:bg-neutral-900">
 
-          {/* Navbar */}
           <div style={{ zIndex: 100, width: '100%' }}>
             <Navbar />
           </div>
@@ -107,12 +96,7 @@ export default function ContactPage() {
             <Footer />
           </div>
         </div>
-
-        {/* RIGHT COLUMN with spacer */}
-        <div className="relative">
-          <div className="w-[280px] h-[400px] ml-[15px]" />
-        </div>
       </div>
     </div>
-  )
+  );
 };

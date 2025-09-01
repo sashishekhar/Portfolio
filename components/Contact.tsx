@@ -13,8 +13,11 @@ const Contact = () => {
   }
 
   return (
-    <div className='w-full h-[300px] p-3'>
-      <div className="flex flex-row">
+    <div className='w-full h-[400px] sm:h-[300px] p-3'>
+      <div className="flex flex-col sm:flex-row ">
+        <div className=''>
+          <ContactMeHero />
+        </div>
         <div className="flex flex-col gap-5 w-full">
           <div className="text-[16px] font-mono text-neutral-800 dark:text-neutral-200 ml-5  bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
             say hello !!
@@ -38,9 +41,7 @@ const Contact = () => {
             </button>
           </div>
         </div>
-        <div className=''>
-          <ContactMeHero />
-        </div>
+        
       </div>
     </div>
   )

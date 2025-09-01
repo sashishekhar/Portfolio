@@ -18,17 +18,16 @@ type TechStackShowcaseProps = {
   ariaLabel?: string
 }
 
-const MIN_COLUMNS = 4
 const ITEM_HEIGHT_PX = 64 // h-16
 
-function normalizeItems(items: TechItem[]): TechItem[] {
-  if (items.length >= MIN_COLUMNS) return items
+function normalizeItems(items: TechItem[], minCols: number): TechItem[] {
+  if (items.length >= minCols) return items
   const out: TechItem[] = []
-  while (out.length < MIN_COLUMNS) out.push(...items)
-  return out.slice(0, MIN_COLUMNS)
+  while (out.length < minCols) out.push(...items)
+  return out.slice(0, minCols)
 }
 
-function splitIntoColumns(items: TechItem[], cols = MIN_COLUMNS): TechItem[][] {
+function splitIntoColumns(items: TechItem[], cols: number): TechItem[][] {
   const byCol: TechItem[][] = Array.from({ length: cols }, () => [])
   items.forEach((it, i) => byCol[i % cols].push(it))
   // Ensure each column can rotate (at least 2 items)
@@ -85,19 +84,20 @@ function ColumnRotator({
     <div
       className={cn(
         "relative h-16 overflow-hidden rounded-md border",
-        "bg-gray-100/60 dark:bg-muted/40",
-        "border-gray-300 dark:border-neutral-700",
+        // Light + Dark backgrounds optimized
+        "bg-gray-100/70 dark:bg-neutral-800",
+        "border-gray-300 dark:border-neutral-600",
       )}
       style={{ height: ITEM_HEIGHT_PX }}
     >
       {reduced ? (
-        <div className="flex h-16 items-center justify-center px-3 text-sm text-gray-800 dark:text-foreground">
+        <div className="flex h-16 items-center justify-center px-3 text-sm text-gray-900 dark:text-gray-100">
           <div className="flex w-full max-w-xs items-center justify-center gap-2">
             <div
               aria-hidden
               className={cn(
                 "flex h-6 w-6 shrink-0 items-center justify-center rounded text-[11px] font-medium",
-                "bg-gray-200 text-gray-700 dark:bg-white dark:text-foreground/70",
+                "bg-gray-200 text-gray-700 dark:bg-neutral-700 dark:text-gray-200",
               )}
             >
               {getInitials(current?.label ?? "")}
@@ -107,7 +107,7 @@ function ColumnRotator({
                 {current?.label}
               </span>
               {current?.sublabel ? (
-                <span className="block truncate text-gray-500 dark:text-foreground/60">
+                <span className="block truncate text-gray-500 dark:text-gray-400">
                   {current.sublabel}
                 </span>
               ) : null}
@@ -124,13 +124,13 @@ function ColumnRotator({
             exit={{ y: -24, opacity: 0 }}
             transition={{ duration: transitionMs / 1000, ease: "easeInOut" }}
           >
-            <div className="flex w-full max-w-xs items-center justify-center gap-2 text-sm text-gray-800 dark:text-foreground">
+            <div className="flex w-full max-w-xs items-center justify-center gap-2 text-sm text-gray-900 dark:text-gray-100">
               <div className="min-w-0 text-center">
                 <span className="block truncate font-medium">
                   {current?.label}
                 </span>
                 {current?.sublabel ? (
-                  <span className="block truncate text-gray-500 dark:text-foreground/60">
+                  <span className="block truncate text-gray-500 dark:text-gray-400">
                     {current?.sublabel}
                   </span>
                 ) : null}
@@ -151,8 +151,21 @@ export function TechStackShowcase({
   className,
   ariaLabel = "Tech stack showcase",
 }: TechStackShowcaseProps) {
-  const base = React.useMemo(() => normalizeItems(items), [items])
-  const columns = React.useMemo(() => splitIntoColumns(base, MIN_COLUMNS), [base])
+  const [cols, setCols] = React.useState(4)
+
+  // Responsive: 2 cols on small, 4 on md+
+  React.useEffect(() => {
+    const updateCols = () => {
+      if (window.innerWidth < 640) setCols(2) // sm breakpoint
+      else setCols(4)
+    }
+    updateCols()
+    window.addEventListener("resize", updateCols)
+    return () => window.removeEventListener("resize", updateCols)
+  }, [])
+
+  const base = React.useMemo(() => normalizeItems(items, cols), [items, cols])
+  const columns = React.useMemo(() => splitIntoColumns(base, cols), [base, cols])
 
   const [reduced, setReduced] = React.useState(false)
   React.useEffect(() => {
@@ -179,13 +192,18 @@ export function TechStackShowcase({
       aria-label={ariaLabel}
       className={cn(
         "w-full rounded-md border p-4 shadow-sm",
-        "bg-white dark:bg-card",
+        "bg-white dark:bg-neutral-900",
         "border-gray-300 dark:border-neutral-700",
-        "shadow-[0_2px_6px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_10px_rgba(255,255,255,0.1)]",
+        "shadow-[0_2px_6px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_10px_rgba(0,0,0,0.4)]",
         className,
       )}
     >
-      <div className="grid grid-cols-4 gap-4">
+      <div
+        className={cn(
+          "grid gap-4",
+          cols === 2 ? "grid-cols-2" : "grid-cols-4"
+        )}
+      >
         {columns.map((colItems, col) => (
           <ColumnRotator
             key={`col-${col}`}

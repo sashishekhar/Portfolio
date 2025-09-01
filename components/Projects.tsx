@@ -137,7 +137,7 @@ export default function Projects() {
             }}
             aria-label="Previous Project"
             style={{ pointerEvents: isFirst ? "none" : "auto" }}
-            className="absolute -left-12 sm:-left-10 top-1/2 -translate-y-1/2 hover:scale-110 transition-transform"
+            className="absolute -left-8 sm:-left-10 top-1/2 -translate-y-1/2 hover:scale-110 transition-transform"
           >
             <ChevronLeft
               className={`w-7 h-7 sm:w-8 sm:h-8 ${

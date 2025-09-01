@@ -1,37 +1,74 @@
 "use client"
 
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import CanvasReadmePage from './CanvasContent'
+import React, { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import CanvasReadmePage from "./CanvasContent"
 
+// ✅ Responsive positions
 const features = {
-  Dashboard: { x: 20, y: 220 },
-  SignIn: { x: -300, y: 300 },
-  Teams: { x: -100, y: -50 },
-  SplitView: { x: -400, y: 50 },
-  Document: { x: 250, y: 0 },
-  Whiteboard: { x: -390, y: -170 },
-  FreeTierLimit: { x: 400, y: 170 },
-};
+  Dashboard: {
+    desktop: { x: 20, y: 220 },
+    mobile: { x: -90, y: 300 },
+  },
+  SignIn: {
+    desktop: { x: -300, y: 300 },
+    mobile: { x: -500, y: 320 },
+  },
+  Teams: {
+    desktop: { x: -100, y: -50 },
+    mobile: { x: -300, y: 50 },
+  },
+  SplitView: {
+    desktop: { x: -400, y: 50 },
+    mobile: { x: -600, y: 100 },
+  },
+  Document: {
+    desktop: { x: 250, y: 0 },
+    mobile: { x: 100, y: 40 },
+  },
+  Whiteboard: {
+    desktop: { x: -390, y: -170 },
+    mobile: { x: -600, y: -80 },
+  },
+  FreeTierLimit: {
+    desktop: { x: 400, y: 170 },
+    mobile: { x: 200, y: 100 },
+  },
+}
+
+// ✅ Hook to detect if < sm screen
+function useIsMobile(breakpoint = 640) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < breakpoint)
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [breakpoint])
+
+  return isMobile
+}
 
 const ProCanvas = () => {
-  const [active, setActive] = useState<keyof typeof features>("Dashboard");
+  const [active, setActive] = useState<keyof typeof features>("Dashboard")
+  const isMobile = useIsMobile()
 
   return (
     <div>
       <div className="header relative">
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
-          animate={{ x: features[active].x, y: features[active].y }}
+          animate={isMobile ? features[active].mobile : features[active].desktop}
           transition={{ type: "spring", stiffness: 50, damping: 20 }}
         >
           <div className="relative w-[1200px] h-[800px] ">
+            {/* 🖼️ Dashboard */}
             <motion.img
               animate={
                 active === "Dashboard"
                   ? { scale: 1.1, boxShadow: "0 0 15px rgba(0,0,0,0.2)" }
-                  : { scale: 1.1, filter: "blur(2px) brightness(1) opacity(.5)", boxShadow: "0 0 8px rgba(0,0,0,0.05)" }
+                  : { scale: 1.1, filter: "blur(2px) brightness(1) opacity(.5)" }
               }
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="absolute w-[400px] top-10 left-76 rounded-xl object-cover"
@@ -107,20 +144,20 @@ const ProCanvas = () => {
           </div>
         </motion.div>
 
-        {/* Title & Features */}
+        {/* Title + Features */}
         <div className="title relative mt-10 mb-10 z-50">
-          <h1 className="text-4xl text-gray-900 dark:text-white font-mono font-medium ml-10">
+          <h1 className="text-2xl sm:text-4xl text-gray-900 dark:text-white font-mono font-medium ml-5 sm:ml-10">
             Canvas
           </h1>
-          <p className="text-md text-gray-600 dark:text-neutral-300 leading-5 font-mono font-light ml-10 mt-1 w-1/5">
+          <p className="text-sm sm:text-md text-gray-600 dark:text-neutral-300 leading-5 font-mono font-light ml-5 sm:ml-10 mt-1 w-2/5">
             Documentation and Whiteboard
           </p>
 
-          <div className="features bg-gray-100/80 dark:bg-neutral-700/80 backdrop-blur-md rounded-xl border border-gray-300 dark:border-neutral-600 w-fit px-5 py-5 mt-5 ml-10 shadow-sm">
-            <h1 className="text-xl text-gray-800 dark:text-neutral-100 font-mono font-medium">
+          <div className="features bg-gray-100/80 dark:bg-neutral-700/80 backdrop-blur-md rounded-xl border border-gray-300 dark:border-neutral-600 w-fit  px-2 sm:px-5 py-2 sm:py-5 mt-5 ml-5 sm:ml-10 shadow-sm">
+            <h1 className="text-md sm:text-xl text-gray-800 dark:text-neutral-100 font-mono font-medium">
               Features
             </h1>
-            <div className="flex flex-col items-start mt-3 gap-2">
+            <div className="flex text-[12px] sm:text-md flex-col items-start mt-3 gap-2">
               {Object.keys(features).map((f) => (
                 <button
                   key={f}
@@ -131,7 +168,7 @@ const ProCanvas = () => {
                       : "text-cyan-700/50 dark:text-cyan-200/50"
                   }`}
                 >
-                  {f} -{'>'}
+                  {f} -{">"}
                 </button>
               ))}
             </div>

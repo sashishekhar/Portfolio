@@ -45,7 +45,7 @@ const page = () => {
             <Testimonials />
           </div>
 
-          <div className="contact">
+          <div className="contact mb-10">
             <Contact />
           </div>
 

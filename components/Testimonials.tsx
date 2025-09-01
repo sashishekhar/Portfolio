@@ -49,25 +49,25 @@ function Testimonials() {
     ]
     return (
         <div className='w-full relative h-[400px]  overflow-hidden'>
-            <div className="h-[350px] z-20 w-[2px]  absolute opacity-20 left-5
+            <div className="h-[350px] z-20 w-[1.6px]  absolute opacity-20 left-5
  top-[-10px]  [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
  dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
   [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
   mask-repeat-no-repeat mask-size-full"
             />
-            <div className="h-[350px] z-20 w-[2px]  absolute opacity-20 right-5
+            <div className="h-[350px] z-20 w-[1.6px]  absolute opacity-20 right-5
  top-[-10px]  [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
  dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
   [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
   mask-repeat-no-repeat mask-size-full"
             />
-            <div className="w-[900px] absolute opacity-20 h-[1.6px]  top-[80px] inset-x-0 z-10
+            <div className="w-[450px] sm:w-[900px] absolute opacity-20 h-[1.6px]  top-[80px] inset-x-0 z-10
       [background-image:repeating-linear-gradient(to_right,_black_0_6px,_transparent_4px_12px)]
       dark:[background-image:repeating-linear-gradient(to_right,_white_0_6px,_transparent_4px_12px)]
       [mask-image:linear-gradient(to_right,_transparent,_black_10%,_black_80%,_transparent)]
       mask-repeat-no-repeat mask-size-full"
             />
-            <div className="w-[900px] absolute opacity-20 h-[1.6px]  bottom-[100px] inset-x-0 z-10
+            <div className="w-[450px] sm:w-[900px] absolute opacity-20 h-[1.6px]  bottom-[100px] inset-x-0 z-10
       [background-image:repeating-linear-gradient(to_right,_black_0_6px,_transparent_4px_12px)]
       dark:[background-image:repeating-linear-gradient(to_right,_white_0_6px,_transparent_4px_12px)]
       [mask-image:linear-gradient(to_right,_transparent,_black_10%,_black_80%,_transparent)]
@@ -77,11 +77,11 @@ function Testimonials() {
             <div className="text-[16px] mb-10 font-mono text-neutral-800 dark:text-neutral-200 ml-8 mt-4  bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">appreciations</div>
 
 
-            <div className="w-[760px] h-[220px] mx-auto flex justify-center items-center  relative overflow-hidden">
-                <div className="w-[100px] absolute z-10 top-[50%] left-0 -translate-y-1/2 h-[210px] bg-gradient-to-r dark:from-neutral-900 from-white to-transparent pointer-events-none"></div>
-                <div className="w-[100px] absolute z-10 top-[50%] right-0 -translate-y-1/2 h-[210px] bg-gradient-to-l dark:from-neutral-900 from-white to-transparent pointer-events-none"></div>
+            <div className="w-full max:w-[800px] h-[220px] mx-auto flex justify-center items-center  relative overflow-hidden">
+                <div className="w-[50px] sm:w-[100px] absolute z-10 top-[50%] left-0 -translate-y-1/2 h-[210px] bg-gradient-to-r dark:from-neutral-900 from-white to-transparent pointer-events-none"></div>
+                <div className="w-[50px] sm:w-[100px] absolute z-10 top-[50%] right-0 -translate-y-1/2 h-[210px] bg-gradient-to-l dark:from-neutral-900 from-white to-transparent pointer-events-none"></div>
 
-                <div className="overflow-hidden relative"
+                <div className="overflow-hidden w-full max-w-[770px] relative"
                     onMouseEnter={() => setPaused(true)}
                     onMouseLeave={() => setPaused(false)}>
                     <div
