@@ -47,7 +47,7 @@ export default function ContactPage() {
             <ContactUs />
           </div>
 
-          <div className="mt-20 footer w-full">
+          <div className="fixed bottom-0 footer w-full">
             <Footer />
           </div>
         </div>

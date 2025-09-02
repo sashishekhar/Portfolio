@@ -49,18 +49,9 @@ function Testimonials() {
     ]
     return (
         <div className='w-full relative h-[400px]  overflow-hidden'>
-            <div className="h-[350px] z-20 w-[1.6px]  absolute opacity-20 left-5
- top-[-10px]  [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
- dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
-  [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
-  mask-repeat-no-repeat mask-size-full"
-            />
-            <div className="h-[350px] z-20 w-[1.6px]  absolute opacity-20 right-5
- top-[-10px]  [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
- dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
-  [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
-  mask-repeat-no-repeat mask-size-full"
-            />
+            
+            
+            
             <div className="w-[450px] sm:w-[900px] absolute opacity-20 h-[1.6px]  top-[80px] inset-x-0 z-10
       [background-image:repeating-linear-gradient(to_right,_black_0_6px,_transparent_4px_12px)]
       dark:[background-image:repeating-linear-gradient(to_right,_white_0_6px,_transparent_4px_12px)]

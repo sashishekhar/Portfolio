@@ -10,57 +10,42 @@ export const ContactUs = () => {
   const [focused, setFocused] = useState(false);
   const { theme } = useTheme();
 
+  // ✅ Pull sensitive keys from .env
+  const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+  const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+  const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!form.current) return;
 
-    emailjs
-      .sendForm(
-        "service_2zcisme",
-        "template_tbkgz0k",
-        form.current,
-        "GKoBY2_bqwIi9WSGd"
-      )
-      .then(
-        () => {
-          console.log("SUCCESS!");
-          form.current?.reset();
-        },
-        (error) => {
-          console.error("FAILED...", error);
-        }
-      );
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error("❌ Missing EmailJS environment variables");
+      return;
+    }
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY).then(
+      () => {
+        console.log("✅ SUCCESS!");
+        form.current?.reset();
+      },
+      (error) => {
+        console.error("❌ FAILED...", error);
+      }
+    );
   };
 
   // Different shadows for light vs dark mode
   const lightShadows = {
-    idle: {
-      boxShadow: "0 1px 10px rgba(0,0,0,0.2)",
-      scale: 1,
-    },
-    focused: {
-      boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-      scale: 1.002,
-    },
-    hover: {
-      boxShadow: "0 3px 6px rgba(0,0,0,0.15)",
-      scale: 1.001,
-    },
+    idle: { boxShadow: "0 1px 10px rgba(0,0,0,0.2)", scale: 1 },
+    focused: { boxShadow: "0 4px 10px rgba(0,0,0,0.15)", scale: 1.002 },
+    hover: { boxShadow: "0 3px 6px rgba(0,0,0,0.15)", scale: 1.001 },
   };
 
   const darkShadows = {
-    idle: {
-      boxShadow: "0 2px 5px rgba(255,255,255,0.06)",
-      scale: 1,
-    },
-    focused: {
-      boxShadow: "0 3px 10px rgba(255,255,255,0.12)",
-      scale: 1.002,
-    },
-    hover: {
-      boxShadow: "0 3px 10px rgba(255,255,255,0.12)",
-      scale: 1.001,
-    },
+    idle: { boxShadow: "0 2px 5px rgba(255,255,255,0.06)", scale: 1 },
+    focused: { boxShadow: "0 3px 10px rgba(255,255,255,0.12)", scale: 1.002 },
+    hover: { boxShadow: "0 3px 10px rgba(255,255,255,0.12)", scale: 1.001 },
   };
 
   const cardVariants = theme === "light" ? lightShadows : darkShadows;

@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import SalutationButton from './SalutationButton'
+import {ContainerTextFlip}  from './SalutationButton'
 import DottedLine from './Dottedline'
 import { motion } from 'motion/react'
 
@@ -53,7 +53,7 @@ const Header = () => {
         <div className="flex  flex-col gap-4 sm:gap-2 ">
           <div className="nameSalutation flex gap-1 mt-2 sm:mt-0 sm:gap-4 flex-col sm:flex-row items:start sm:items-center">
             <div className='text-[22px] sm:text-[30px]  text-shadow-xs text-shadow-neutral-400 text-neutral-800 dark:text-neutral-100 tracking-tighter   font-bold font-mono'>Sashi Sekhar Singh</div>
-            <div className='z-10'><SalutationButton /></div>
+            <div className='z-10'><ContainerTextFlip  /></div>
           </div>
 
 

@@ -28,10 +28,16 @@
     mask-repeat: no-repeat;
     mask-size: 100% 100%;
   }
+  .dark-keystroke-inset-shadow {
+    box-shadow: inset 1px 1px 5px rgba(255,255,255,0.08), inset -1px -1px 5px rgba(255,255,255,0.08);
+  }
+  .keystroke-inset-shadow {
+    box-shadow: inset 1px 1px 5px rgba(0,0,0,0.08), inset -1px -1px 5px rgba(0,0,0,0.08);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-  .keystroke-inset-shadow {
+  .dark-keystroke-inset-shadow {
     box-shadow: inset 1px 1px 5px rgba(255,255,255,0.08), inset -1px -1px 5px rgba(255,255,255,0.08);
   }
   .testimonial-card-inset-shadow {
@@ -45,6 +51,15 @@
   }
   .testimonial-card-shadow {
     box-shadow: 1px 1px 5px rgba(0,0,0,0.05), -1px -1px 5px rgba(0,0,0,0.05);
+  }
+  .keystroke-inset-shadow {
+    box-shadow: inset 1px 1px 5px rgba(0,0,0,0.08), inset -1px -1px 5px rgba(0,0,0,0.08);
+  }
+  .page-shadow{
+    box-shadow: 2px 0px 5px rgba(0,0,0,0.2), -2px 0px 5px rgba(0,0,0,0.2);
+  }
+  .page-shadow-white{
+    box-shadow: 2px 0px 5px rgba(0,0,0,1), -2px 0px 5px rgba(255,255,255,0.2);
   }
 }
 

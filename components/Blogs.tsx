@@ -42,16 +42,16 @@ const Blogs = () => {
     <div className="w-full relative h-screen flex flex-col justify-center px-9">
       {/* Left line */}
       <div
-        className="h-[660px] z-20 w-[2px] absolute opacity-20 left-5
-        top-40 [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
+        className="h-[560px] z-20 w-[2px] absolute opacity-20 left-5
+        top-20 [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
         dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
         [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
         mask-repeat-no-repeat mask-size-full"
       />
       {/* Right line */}
       <div
-        className="h-[660px] z-20 w-[2px] absolute opacity-20 right-5
-        top-40 [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
+        className="h-[560px] z-20 w-[2px] absolute opacity-20 right-5
+        top-20 [background-image:repeating-linear-gradient(to_bottom,_black_0_6px,_transparent_4px_12px)]
         dark:[background-image:repeating-linear-gradient(to_bottom,_white_0_6px,_transparent_4px_12px)]
         [mask-image:linear-gradient(to_bottom,_transparent,_black_30%,_black_80%,_transparent)]
         mask-repeat-no-repeat mask-size-full"
