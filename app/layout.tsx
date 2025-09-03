@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Shashi Shekhar / Portfolio",
     description: "Frontend engineer & ML lead — showcasing projects and experience.",
-    url: "https://yourdomain.com", // 👈 replace with your deployed domain
+    url: "https://shashishkr-dev-portfolio-pi.vercel.app/", 
     siteName: "Shashi Shekhar Portfolio",
     images: [
       {
-        url: "https://yourdomain.com/og.png", // 👈 put your OG image here
+        url: "https://shashishkr-dev-portfolio-pi.vercel.app/og.png", 
         width: 1200,
         height: 630,
         alt: "Portfolio preview of Shashi Shekhar",
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shashi Shekhar / Portfolio",
     description: "Frontend engineer & ML lead — showcasing projects and experience.",
-    site: "@yourHandle", // 👈 replace with your X/Twitter handle
-    images: ["https://yourdomain.com/og.png"], // same as OG
+    site: "@sashi_tw", 
+    images: ["https://shashishkr-dev-portfolio-pi.vercel.app/og.png"], 
   },
 };
 
