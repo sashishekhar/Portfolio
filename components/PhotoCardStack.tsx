@@ -5,27 +5,27 @@ import { createContext, useContext, useRef, type ReactNode } from "react"
 const photos = [
   {
     id: 1,
-    src: "/profilepics/Andi Lane.jpg",
-    alt: "Andi Lane",
-    title: "Andi Lane",
+    src: "/profilepics/Profile.png",
+    alt: "me",
+    title: "me",
   },
   {
     id: 2,
-    src: "/profilepics/Candice Wu.jpg",
-    alt: "Candice Wu",
-    title: "Candice Wu",
+    src: "/profilepics/Code.jpeg",
+    alt: "code ..",
+    title: "code ..",
   },
   {
     id: 3,
-    src: "/profilepics/Elsie Roy.jpg",
-    alt: "Elsie Roy",
-    title: "Elsie Roy",
+    src: "/profilepics/Hackathon.jpg",
+    alt: "hackathon",
+    title: "hackathon",
   },
   {
     id: 4,
-    src: "/profilepics/Jordan Burgess.jpg",
-    alt: "Jordan Burgess",
-    title: "Jordan Burgess",
+    src: "/profilepics/x.png",
+    alt: "x.com",
+    title: "x.com",
   },
 ]
 

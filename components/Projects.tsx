@@ -1,9 +1,58 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+
+function ArrowButton({ href }: { href: string }) {
+  const [hovered, setHovered] = useState(false);
+
+  const variants = {
+    initial: { opacity: 0, x: -12, y: 12, rotate: -15 },
+    enter: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      rotate: 0,
+      transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const },
+    },
+    exit: {
+      opacity: 0,
+      x: 12,
+      y: -12,
+      rotate: 0,
+      transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const },
+    },
+  };
+
+  return (
+    <div
+      className="relative w-8 h-8 sm:w-10 sm:h-10"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <Link
+        href={href}
+        target="_blank"
+        className="absolute inset-0 flex items-center justify-center rounded-full hover:bg-neutral-200/40 dark:hover:bg-neutral-700/40 transition"
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.div
+            key={hovered ? "arrow-hovered" : "arrow-normal"}
+            variants={variants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+            className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 dark:text-white"
+          >
+            <ArrowUpRight className="w-full h-full" />
+          </motion.div>
+        </AnimatePresence>
+      </Link>
+    </div>
+  );
+}
 
 export default function Projects() {
   const projects = [
@@ -32,7 +81,7 @@ export default function Projects() {
     },
   ];
 
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === projects.length - 1;
 
@@ -52,11 +101,11 @@ export default function Projects() {
 
   const imgSpring = reduce
     ? { duration: 0 }
-    : { type: "spring", stiffness: 120, damping: 18 };
+    : { type: "spring" as const, stiffness: 120, damping: 18 };
 
   const textTween = reduce
     ? { duration: 0 }
-    : { duration: 0.46, ease: [0.22, 1, 0.36, 1] };
+    : { duration: 0.46, ease: [0.22, 1, 0.36, 1] as const };
 
   const containerVariant = {
     initial: { opacity: 0, scale: 0.995 },
@@ -86,7 +135,7 @@ export default function Projects() {
       scale: 1,
       opacity: 1,
       filter: "blur(0px)",
-      transition: imgSpring,
+      transition: imgSpring ,
     },
     exit: {
       x: -72,
@@ -94,7 +143,7 @@ export default function Projects() {
       scale: 0.96,
       opacity: 0,
       filter: "blur(6px)",
-      transition: { duration: reduce ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: reduce ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] as const },
     },
   };
 
@@ -116,15 +165,13 @@ export default function Projects() {
     initial: { scaleX: 0 },
     animate: {
       scaleX: 1,
-      transition: { duration: reduce ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: reduce ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] as const },
     },
     exit: { scaleX: 0, transition: { duration: reduce ? 0 : 0.2 } },
   };
 
   return (
     <div className="flex flex-col mb-20 px-4 sm:px-6 lg:px-0">
-      
-
       <motion.div className="flex flex-col gap-6 w-full max-w-[700px] p-5 items-center relative">
         <div className="relative w-full aspect-[16/9] sm:h-[400px]">
           {/* LEFT ARROW */}
@@ -197,7 +244,7 @@ export default function Projects() {
                   exit={{ opacity: 0 }}
                   transition={{
                     duration: reduce ? 0 : 0.9,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: [0.22, 1, 0.36, 1] as const,
                   }}
                   className="absolute right-6 sm:right-12 top-[20%] sm:top-[84px] w-[60%] sm:w-[420px] h-[40%] sm:h-[220px] rounded-xl pointer-events-none"
                   style={{
@@ -218,13 +265,9 @@ export default function Projects() {
                     <h3 className="font-mono font-semibold text-lg sm:text-2xl text-neutral-800 dark:text-white">
                       {projects[currentIndex].title}
                     </h3>
-                    <Link
-                      href={projects[currentIndex].link}
-                      target="_blank"
-                      className="p-1.5 sm:p-2 rounded-full hover:bg-neutral-200/40 dark:hover:bg-neutral-700/40 transition"
-                    >
-                      <ArrowUpRight />
-                    </Link>
+
+                    {/* ✅ Animated Arrow */}
+                    <ArrowButton href={projects[currentIndex].link} />
                   </div>
 
                   <div className="px-2 sm:px-4 pb-4 sm:pb-6">

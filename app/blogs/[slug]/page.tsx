@@ -10,8 +10,16 @@ import "highlight.js/styles/github-dark.css"; // ✅ dark mode handled with `dar
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-export default async function BlogPage({ params }: { params: { slug: string } }) {
-    const res = await fetch(`${baseUrl}/api/blogs/${params.slug}`, {
+// Updated interface for Next.js 15
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function BlogPage({ params }: PageProps) {
+    // Await the params Promise
+    const { slug } = await params;
+    
+    const res = await fetch(`${baseUrl}/api/blogs/${slug}`, {
         cache: "no-store",
     });
 
@@ -28,6 +36,31 @@ export default async function BlogPage({ params }: { params: { slug: string } })
       <div className="main w-full flex justify-center">
         {/* MIDDLE COLUMN (main content) */}
         <div className="middle w-full max-w-[820px] mx-auto relative rounded-[0px] shadow-[2px_0px_5px_rgba(0,0,0,0.2),-2px_0px_5px_rgba(0,0,0,0.2)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_1px_1px_-0.5px_rgba(255,255,255,0.06),0px_3px_3px_-1.5px_rgba(255,255,255,0.06),_0px_6px_6px_-3px_rgba(255,255,255,0.06),0px_12px_12px_-6px_rgba(255,255,255,0.06),0px_24px_24px_-12px_rgba(255,255,255,0.06)] dark:border-l dark:border-r dark:border-neutral-600 border-neutral-300 bg-white dark:bg-neutral-900">
+
+          <div className="absolute top-0 -left-8 h-full w-[20px] opacity-60">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+              <defs>
+                <pattern id="herringbone" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)">
+                  <rect width="6" height="12" fill="currentColor" className="text-neutral-200 dark:text-neutral-700" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#herringbone)" />
+            </svg>
+
+          </div>
+
+          {/* RIGHT STRIP (mirrored waves) */}
+          <div className="absolute top-0 -right-8 h-full w-[20px] opacity-60 transform scale-x-[-1]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+              <defs>
+                <pattern id="herringbone" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)">
+                  <rect width="6" height="12" fill="currentColor" className="text-neutral-200 dark:text-neutral-700" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#herringbone)" />
+            </svg>
+
+          </div>
 
           <div style={{ zIndex: 100, width: "100%" }}>
                         <Navbar />
@@ -101,4 +134,32 @@ export default async function BlogPage({ params }: { params: { slug: string } })
       </div>
     </div>
   );
+}
+
+// Optional: Add generateMetadata function if you want dynamic meta tags
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  
+  try {
+    const res = await fetch(`${baseUrl}/api/blogs/${slug}`, {
+      cache: "no-store",
+    });
+    
+    if (!res.ok) {
+      return {
+        title: 'Blog Post Not Found',
+      };
+    }
+    
+    const blog = await res.json();
+    
+    return {
+      title: blog.meta.title,
+      description: blog.meta.description,
+    };
+  } catch {
+    return {
+      title: 'Blog Post Not Found',
+    };
+  }
 }

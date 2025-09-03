@@ -74,7 +74,7 @@ export function ContainerTextFlip({
       scale: 1,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 260,
         damping: 20,
       },

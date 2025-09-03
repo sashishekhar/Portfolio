@@ -39,7 +39,7 @@ export function TechStackCarousel({
   const [sideSpacerPx, setSideSpacerPx] = React.useState(0)
   const [containerW, setContainerW] = React.useState(0)
   const [isHovered, setIsHovered] = React.useState(false)
-  
+
   React.useEffect(() => {
     const update = () => {
       const el = containerRef.current
@@ -64,7 +64,11 @@ export function TechStackCarousel({
     [containerW, sideSpacerPx, slotW, step],
   )
 
-  const spring = { type: "spring", stiffness: 540, damping: 22, mass: 0.7 } as const
+  // ✅ Memoize spring so it's stable
+  const spring = React.useMemo(
+    () => ({ type: "spring", stiffness: 540, damping: 22, mass: 0.7 } as const),
+    []
+  )
 
   const goToIndex = React.useCallback(
     (i: number) => {
@@ -73,7 +77,7 @@ export function TechStackCarousel({
       const targetX = xForIndex(clamped)
       controls.start({ x: targetX, transition: spring })
     },
-    [controls, items.length, xForIndex],
+    [controls, items.length, xForIndex, spring],
   )
 
   React.useEffect(() => {
@@ -85,7 +89,7 @@ export function TechStackCarousel({
 
   React.useEffect(() => {
     controls.start({ x: xForIndex(activeIndex), transition: spring })
-  }, [xForIndex, activeIndex, controls])
+  }, [xForIndex, activeIndex, controls, spring])
 
   const nearestIndexFromX = React.useCallback(
     (curX: number) => {
@@ -107,23 +111,22 @@ export function TechStackCarousel({
       e.preventDefault()
     }
 
-    // Only prevent scroll when hovered AND not at boundaries
     const shouldPreventScroll = isHovered && !isAtStart && !isAtEnd
 
     if (shouldPreventScroll) {
-      document.body.style.overflow = 'hidden'
-      document.addEventListener('wheel', preventScroll, { passive: false })
-      document.addEventListener('touchmove', preventScroll, { passive: false })
+      document.body.style.overflow = "hidden"
+      document.addEventListener("wheel", preventScroll, { passive: false })
+      document.addEventListener("touchmove", preventScroll, { passive: false })
     } else {
-      document.body.style.overflow = ''
-      document.removeEventListener('wheel', preventScroll)
-      document.removeEventListener('touchmove', preventScroll)
+      document.body.style.overflow = ""
+      document.removeEventListener("wheel", preventScroll)
+      document.removeEventListener("touchmove", preventScroll)
     }
 
     return () => {
-      document.body.style.overflow = ''
-      document.removeEventListener('wheel', preventScroll)
-      document.removeEventListener('touchmove', preventScroll)
+      document.body.style.overflow = ""
+      document.removeEventListener("wheel", preventScroll)
+      document.removeEventListener("touchmove", preventScroll)
     }
   }, [isHovered, isAtStart, isAtEnd])
 
@@ -149,7 +152,7 @@ export function TechStackCarousel({
     const el = containerRef.current
     if (!el) return
     let wheelLock = false
-    
+
     const onWheel = (e: WheelEvent) => {
       const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
       if (Math.abs(delta) < 8 || wheelLock) return
@@ -157,13 +160,10 @@ export function TechStackCarousel({
       const atStart = activeIndexRef.current === 0
       const atEnd = activeIndexRef.current === items.length - 1
 
-      // If at boundaries and trying to go further, allow page scroll by not preventing default
       if ((atStart && delta < 0) || (atEnd && delta > 0)) {
-        // Don't prevent default - allow natural page scroll
-        return
+        return // let page scroll naturally
       }
 
-      // Only prevent default and handle carousel navigation when not at boundaries
       e.preventDefault()
       e.stopPropagation()
       wheelLock = true
@@ -190,7 +190,6 @@ export function TechStackCarousel({
           "bg-neutral-50 dark:bg-neutral-900",
           "border-neutral-400 dark:border-neutral-500",
           " shadow-[0px_2px_5px_rgb(0,0,0,0.1)] dark:shadow-[0px_2px_5px_rgb(255,255,255,0.1)]",
-          
         )}
         tabIndex={0}
         role="listbox"
@@ -256,7 +255,7 @@ export function TechStackCarousel({
                   />
                 </motion.div>
 
-                {/* Active card - with proper center transform origin */}
+                {/* Active card */}
                 <motion.div
                   className={cn(
                     "absolute inset-0 flex flex-col items-center justify-center rounded-xl",
@@ -267,17 +266,12 @@ export function TechStackCarousel({
                   )}
                   aria-label={item.name}
                   initial={false}
-                  animate={{ 
-                    scale: isActive ? 1 : 0.82, 
-                    opacity: isActive ? 1 : 0 
+                  animate={{
+                    scale: isActive ? 1 : 0.82,
+                    opacity: isActive ? 1 : 0,
                   }}
                   transition={spring}
-                  transformTemplate={({ scale, opacity }) => 
-                    `scale(${scale}) opacity(${opacity})`
-                  }
-                  style={{
-                    transformOrigin: 'center center'
-                  }}
+                  style={{ transformOrigin: "center center" }}
                 >
                   <div className="flex items-center justify-center">{item.icon}</div>
                   <span className="mt-2 text-xs sm:text-sm font-mono font-medium text-center px-2">

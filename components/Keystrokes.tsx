@@ -4,6 +4,13 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { useTheme } from "next-themes";
 import { TechStackCarousel } from "./TechStackCarousel"; // ✅ direct import
+import Title from './Title';
+import Image from "next/image";
+
+type TechItem = {
+  name: string;
+  icon: React.ReactNode;
+};
 
 const DominoKeys = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -22,32 +29,31 @@ const DominoKeys = () => {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  const techStack = [
-    { name: 'JavaScript', icon: <img src="/icons/js.png" alt="JavaScript" className="h-12 w-12" /> },
-    { name: 'TypeScript', icon: <img src="/icons/typescript.png" alt="TypeScript" className="h-12 w-12" /> },
-    { name: 'Vector', icon: <img src="/icons/Vector.png" alt="Vector" className="h-12 w-12" /> },
-    { name: 'Motion', icon: <img src="/icons/motion.png" alt="Motion" className="h-12 w-12" /> },
-    { name: 'Bootstrap 5', icon: <img src="/icons/bootstrap5.png" alt="Bootstrap" className="h-12 w-12" /> },
-    { name: 'Figma', icon: <img src="/icons/figma.png" alt="Figma" className="h-12 w-12" /> },
-    { name: 'Frame', icon: <img src="/icons/Frame.png" alt="Frame" className="h-12 w-12" /> },
-    { name: 'Framer', icon: <img src="/icons/framer.png" alt="Framer" className="h-12 w-12" /> },
-    { name: 'Git', icon: <img src="/icons/git.png" alt="Git" className="h-12 w-12" /> },
-    { name: 'npm', icon: <img src="/icons/npm.png" alt="npm" className="h-12 w-12" /> },
-    { name: 'GitHub', icon: <img src="/icons/github.png" alt="GitHub" className="h-12 w-12" /> },
-    { name: 'MongoDB', icon: <img src="/icons/mongoDB.png" alt="MongoDB" className="h-12 w-12" /> },
-    { name: 'Next.js', icon: <img src="/icons/nextjs2.png" alt="Next.js" className="h-12 w-12" /> },
-    { name: 'Node.js', icon: <img src="/icons/nodejs.png" alt="Node.js" className="h-12 w-12" /> },
-    { name: 'PostgreSQL', icon: <img src="/icons/postgresql.png" alt="PostgreSQL" className="h-12 w-12" /> },
-    { name: 'React', icon: <img src="/icons/react.png" alt="React" className="h-12 w-12" /> },
-    { name: 'Supabase', icon: <img src="/icons/supabase.png" alt="Supabase" className="h-12 w-12" /> },
-    { name: 'Vercel', icon: <img src="/icons/Vercel.png" alt="Vercel" className="h-12 w-12" /> },
+  const techStack: TechItem[] = [
+    { name: 'JavaScript', icon: <Image src="/icons/js.png" alt="JavaScript" width={48} height={48} /> },
+    { name: 'TypeScript', icon: <Image src="/icons/typescript.png" alt="TypeScript" width={48} height={48} /> },
+    { name: 'Vector', icon: <Image src="/icons/Vector.png" alt="Vector" width={48} height={48} /> },
+    { name: 'Motion', icon: <Image src="/icons/motion.png" alt="Motion" width={48} height={48} /> },
+    { name: 'Bootstrap 5', icon: <Image src="/icons/bootstrap5.png" alt="Bootstrap" width={48} height={48} /> },
+    { name: 'Figma', icon: <Image src="/icons/figma.png" alt="Figma" width={48} height={48} /> },
+    { name: 'Frame', icon: <Image src="/icons/Frame.png" alt="Frame" width={48} height={48} /> },
+    { name: 'Framer', icon: <Image src="/icons/framer.png" alt="Framer" width={48} height={48} /> },
+    { name: 'Git', icon: <Image src="/icons/git.png" alt="Git" width={48} height={48} /> },
+    { name: 'npm', icon: <Image src="/icons/npm.png" alt="npm" width={48} height={48} /> },
+    { name: 'GitHub', icon: <Image src="/icons/github.png" alt="GitHub" width={48} height={48} /> },
+    { name: 'MongoDB', icon: <Image src="/icons/mongoDB.png" alt="MongoDB" width={48} height={48} /> },
+    { name: 'Next.js', icon: <Image src="/icons/nextjs2.png" alt="Next.js" width={48} height={48} /> },
+    { name: 'Node.js', icon: <Image src="/icons/nodejs.png" alt="Node.js" width={48} height={48} /> },
+    { name: 'PostgreSQL', icon: <Image src="/icons/postgresql.png" alt="PostgreSQL" width={48} height={48} /> },
+    { name: 'React', icon: <Image src="/icons/react.png" alt="React" width={48} height={48} /> },
+    { name: 'Supabase', icon: <Image src="/icons/supabase.png" alt="Supabase" width={48} height={48} /> },
+    { name: 'Vercel', icon: <Image src="/icons/Vercel.png" alt="Vercel" width={48} height={48} /> },
   ];
 
   // ✅ MOBILE COMPONENT
-  const MobileTechItem = ({ tech, index }: { tech: any; index: number }) => {
+  const MobileTechItem = ({ tech, index }: { tech: TechItem; index: number }) => {
     const itemRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(itemRef, {
-      threshold: 0.5,
       margin: "-50% 0px -50% 0px",
     });
 
@@ -56,8 +62,9 @@ const DominoKeys = () => {
         ref={itemRef}
         key={tech.name}
         layoutId={`domino-mobile-${index}`}
-        className={`relative flex justify-center items-center overflow-hidden rounded-full ${isInView ? "keystroke-inset-shadow" : ""
-          } cursor-pointer dark:bg-neutral-800 bg-neutral-300 p-[2px]`}
+        className={`relative flex justify-center items-center overflow-hidden rounded-full ${
+          isInView ? "keystroke-inset-shadow" : ""
+        } cursor-pointer dark:bg-neutral-800 bg-neutral-300 p-[2px]`}
         initial={{ width: "1rem", height: "2rem" }}
         animate={{
           width: isInView ? "7rem" : "1rem",
@@ -97,11 +104,10 @@ const DominoKeys = () => {
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="flex flex-col relative items-center text-center"
               >
-                <img
-                  src={tech.icon.props.src}
-                  alt={tech.name}
-                  className="h-12 absolute z-0 inset-0 blur-md opacity-50"
-                />
+                {/* Blurred background image */}
+                <div className="absolute z-0 inset-0 blur-md opacity-50">
+                  {tech.icon}
+                </div>
                 {tech.icon}
               </motion.div>
             )}
@@ -118,9 +124,11 @@ const DominoKeys = () => {
         ref={containerRef}
         className="flex flex-col gap-1 px-4 w-full overflow-x-auto relative no-scrollbar h-auto"
       >
-        <div className="text-[16px] font-mono text-neutral-800 dark:text-neutral-200 ml-5 mb-5 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
-          my keystrokes
-        </div>
+        <Title
+          defaultText="keystrokes !!"
+          hoverText="the steps of a great site !!"
+          className="text-[16px] sm:text-[22px] text-neutral-900 font-mono border-0 sm:ml-2 ml-1 mb-8 w-fit px-2"
+        />
 
         <motion.div
           initial={{
@@ -150,20 +158,19 @@ const DominoKeys = () => {
 
   // ✅ DESKTOP LAYOUT -> TechStackCarousel
   return (
-    <div
-      className="px-4 w-full flex flex-col mb-30 mt-10 justify-center"
-      
-    >
-      <div className="text-[16px] font-mono text-neutral-800 dark:text-neutral-200 mt-10 ml-5 mb-10 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
-        my keystrokes
-      </div>
-      <div className='flex justify-center'>
+    <div className="px-4 w-full flex flex-col mb-30 mt-10 justify-center">
+      <Title
+        defaultText="keystrokes !!"
+        hoverText="the steps of a great site !!"
+        className="text-[16px] sm:text-[22px] text-neutral-700 font-medium dark:text-neutral-200 font-mono border-0 sm:ml-2 ml-1 mb-8 w-fit px-2"
+      />
+      <div className="flex justify-center">
         <TechStackCarousel
           items={techStack}
           dotSize={10}
           activeSize={112}
           gap={24}
-          className="rounded-xl border-t-1 border-neutral-400 dark:border-neutral-400 bg-neutral-300  dark:bg-neutral-800"
+          className="rounded-xl border-t-1 border-neutral-400 dark:border-neutral-400 bg-neutral-300 dark:bg-neutral-800"
         />
       </div>
     </div>

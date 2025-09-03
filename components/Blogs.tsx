@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowTurnDownIcon } from "hugeicons-react";
 import { ArrowDown } from "lucide-react";
+import Title from './Title';
 
 type BlogMeta = {
   title: string;
@@ -18,24 +18,24 @@ const Blogs = () => {
   const [blogs, setBlogs] = useState<BlogMeta[]>([]);
 
   useEffect(() => {
-  async function fetchBlogs() {
-    try {
-      const res = await fetch("/api/blogs");
-      if (!res.ok) throw new Error("Failed to fetch blogs");
-      const data: BlogMeta[] = await res.json();
+    async function fetchBlogs() {
+      try {
+        const res = await fetch("/api/blogs");
+        if (!res.ok) throw new Error("Failed to fetch blogs");
+        const data: BlogMeta[] = await res.json();
 
-      // sort blogs by date (newest first) and take top 3
-      const sorted = data
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .slice(0, 3);
+        // sort blogs by date (newest first) and take top 3
+        const sorted = data
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 3);
 
-      setBlogs(sorted);
-    } catch (err) {
-      console.error("Error fetching blogs:", err);
+        setBlogs(sorted);
+      } catch (err) {
+        console.error("Error fetching blogs:", err);
+      }
     }
-  }
-  fetchBlogs();
-}, []);
+    fetchBlogs();
+  }, []);
 
 
   return (
@@ -57,9 +57,11 @@ const Blogs = () => {
         mask-repeat-no-repeat mask-size-full"
       />
 
-      <div className="text-sm sm:text-base mb-5 font-mono text-neutral-800 dark:text-neutral-200 bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">
-        blogs because i don&apos;t write
-      </div>
+      <Title
+        defaultText="blogs !!"
+        hoverText="because i don&apos;t write"
+        className="text-[16px] sm:text-[22px]  text-neutral-700 font-medium dark:text-neutral-200 font-mono border-0 sm:-ml-4 -ml-3  mb-5 w-fit px-2 "
+      />
 
       <div className="flex flex-col w-full gap-4">
         {blogs.map((blog) => (
@@ -106,12 +108,12 @@ const Blogs = () => {
         ))}
       </div>
 
-      <motion.div 
-      whileHover={{
-        scale: 1.1,
-        transition: { duration: 0.3, ease: "easeInOut" },
-      }}
-      className="w-full flex justify-center mt-5">
+      <motion.div
+        whileHover={{
+          scale: 1.1,
+          transition: { duration: 0.3, ease: "easeInOut" },
+        }}
+        className="w-full flex justify-center mt-5">
 
         <Link
           href="/blogs"

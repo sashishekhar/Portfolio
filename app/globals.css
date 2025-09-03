@@ -2,6 +2,24 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
+/* Smooth color transitions */
+/* Only animate background + text colors */
+html, body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* If you want for specific components */
+.transition-colors {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Disable transitions until mounted */
+html.transition-none, body.transition-none {
+  transition: none !important;
+}
+
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -34,6 +52,11 @@
   .keystroke-inset-shadow {
     box-shadow: inset 1px 1px 5px rgba(0,0,0,0.08), inset -1px -1px 5px rgba(0,0,0,0.08);
   }
+}
+
+
+.btn-inset {
+  box-shadow: inset 0 2px 12px rgba(255,255,255,0.08), inset 0 2px 8px rgba(255,255,255,0.08);
 }
 
 @media (prefers-color-scheme: dark) {

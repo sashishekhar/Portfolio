@@ -2,9 +2,7 @@
 import React from 'react';
 import { motion } from "framer-motion";
 import { useState } from 'react';
-import { ContactUs } from '@/components/ContactUs';
 import Navbar from '@/components/Navbar';
-import ContactMeHero from '@/components/Contactmesvg'
 import Footer from '@/components/Footer';
 import ProCanvas from '@/components/ProCanvas';
 import ProNetwork from '@/components/ProNetwork';
@@ -30,6 +28,31 @@ export default function ContactPage() {
         {/* MIDDLE COLUMN (main content) */}
         <div className="middle w-full max-w-[820px] mx-auto relative rounded-[0px] shadow-[2px_0px_5px_rgba(0,0,0,0.2),-2px_0px_5px_rgba(0,0,0,0.2)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_1px_1px_-0.5px_rgba(255,255,255,0.06),0px_3px_3px_-1.5px_rgba(255,255,255,0.06),_0px_6px_6px_-3px_rgba(255,255,255,0.06),0px_12px_12px_-6px_rgba(255,255,255,0.06),0px_24px_24px_-12px_rgba(255,255,255,0.06)] dark:border-l dark:border-r dark:border-neutral-600 border-neutral-300 bg-white dark:bg-neutral-900">
 
+
+          <div className="absolute top-0 -left-8 h-full w-[20px] opacity-60">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+              <defs>
+                <pattern id="herringbone" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)">
+                  <rect width="6" height="12" fill="currentColor" className="text-neutral-200 dark:text-neutral-700" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#herringbone)" />
+            </svg>
+
+          </div>
+
+          {/* RIGHT STRIP (mirrored waves) */}
+          <div className="absolute top-0 -right-8 h-full w-[20px] opacity-60 transform scale-x-[-1]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
+              <defs>
+                <pattern id="herringbone" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)">
+                  <rect width="6" height="12" fill="currentColor" className="text-neutral-200 dark:text-neutral-700" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#herringbone)" />
+            </svg>
+
+          </div>
           <div style={{ zIndex: 100, width: '100%' }}>
             <Navbar />
           </div>
@@ -55,8 +78,8 @@ export default function ContactPage() {
                     onMouseEnter={() => setHoveredProject(project)}
                     onMouseLeave={() => setHoveredProject(null)}
                     className={`relative px-3 py-1 transition-colors 
-                      ${isActive 
-                        ? "text-gray-900 dark:text-white" 
+                      ${isActive
+                        ? "text-gray-900 dark:text-white"
                         : "hover:text-gray-600 dark:hover:text-neutral-300"}`}
                   >
                     {project.name}

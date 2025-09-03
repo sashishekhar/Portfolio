@@ -4,6 +4,8 @@ import { ThemeProvider } from "next-themes";
 import "prismjs/themes/prism-tomorrow.css";
 import "./globals.css";
 
+import LenisProvider from "./LenisProvider"; // 👈 import it
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -23,7 +25,9 @@ export default function RootLayout({
     <html lang="en" className={geistMono.variable} suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider enableSystem={true} defaultTheme="system">
-          {children}
+          <LenisProvider>   {/* 👈 wrap children here */}
+            {children}
+          </LenisProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useMotionValue, useTransform, animate, type PanInfo } from "framer-motion"
+import { motion, useMotionValue, useTransform, animate } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
 import { useGlobalTimeout } from "./PhotoCardStack"
@@ -40,7 +40,6 @@ export function PhotoCard({ photo, index, totalCards }: PhotoCardProps) {
   const resetPosition = () => {
     setIsReturning(true)
 
-    // Animate back to original position with floating motion
     animate(x, 0, {
       type: "spring",
       stiffness: 100,
@@ -66,7 +65,7 @@ export function PhotoCard({ photo, index, totalCards }: PhotoCardProps) {
     clearGlobalTimeout()
   }
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = () => {
     setIsDragging(false)
     resetGlobalTimeout(resetPosition)
   }
@@ -162,7 +161,6 @@ export function PhotoCard({ photo, index, totalCards }: PhotoCardProps) {
             }}
           />
         )}
-
       </motion.div>
     </motion.div>
   )

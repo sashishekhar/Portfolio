@@ -1,7 +1,6 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { filter } from "motion/react-client"
 import { useState } from "react"
 
 export function AnimatedDoc() {
@@ -14,7 +13,7 @@ export function AnimatedDoc() {
       transition: {
         duration: 3,
         repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
       },
     },
     hover: {
@@ -36,7 +35,7 @@ export function AnimatedDoc() {
       transition: {
         delay: i * 0.2,
         duration: 1.5,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         opacity: {
           times: [0, 0.1, 0.8, 1],
           duration: 2,

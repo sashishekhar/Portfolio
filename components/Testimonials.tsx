@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { div, filter, style } from 'motion/react-client';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Title from './Title';
 
 function Testimonials() {
     const [paused, setPaused] = useState(false);
@@ -52,20 +52,24 @@ function Testimonials() {
             
             
             
-            <div className="w-[450px] sm:w-[900px] absolute opacity-20 h-[1.6px]  top-[80px] inset-x-0 z-10
+            <div className="w-full max-w-[900px] absolute opacity-20 h-[1.6px]  top-[80px] inset-x-0 z-10
       [background-image:repeating-linear-gradient(to_right,_black_0_6px,_transparent_4px_12px)]
       dark:[background-image:repeating-linear-gradient(to_right,_white_0_6px,_transparent_4px_12px)]
       [mask-image:linear-gradient(to_right,_transparent,_black_10%,_black_80%,_transparent)]
       mask-repeat-no-repeat mask-size-full"
             />
-            <div className="w-[450px] sm:w-[900px] absolute opacity-20 h-[1.6px]  bottom-[100px] inset-x-0 z-10
+            <div className="w-full max-w-[900px] absolute opacity-20 h-[1.6px]  bottom-[100px] inset-x-0 z-10
       [background-image:repeating-linear-gradient(to_right,_black_0_6px,_transparent_4px_12px)]
       dark:[background-image:repeating-linear-gradient(to_right,_white_0_6px,_transparent_4px_12px)]
       [mask-image:linear-gradient(to_right,_transparent,_black_10%,_black_80%,_transparent)]
       mask-repeat-no-repeat mask-size-full"
             />
 
-            <div className="text-[16px] mb-10 font-mono text-neutral-800 dark:text-neutral-200 ml-8 mt-4  bg-neutral-200/50 dark:bg-neutral-700/30 w-fit px-2">appreciations</div>
+            <Title
+                      defaultText="appreciations !!"
+                      hoverText="few words of appreciation !!"
+                      className="text-[16px] sm:text-[22px]   text-neutral-700 font-medium dark:text-neutral-200 font-mono border-0 sm:ml-6 ml-5 mb-11 sm:mb-8 w-fit px-2 "
+                    />
 
 
             <div className="w-full max:w-[800px] h-[220px] mx-auto flex justify-center items-center  relative overflow-hidden">

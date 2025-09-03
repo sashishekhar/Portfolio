@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <div className='flex flex-col justify-center'>
       <div
-        className="w-[800px] ml-3 opacity-20 h-[1.6px] z-10
+        className="w-full max-w-[800px] ml-3 opacity-20 h-[1.6px] z-10
             [background-image:repeating-linear-gradient(to_right,_black_0_6px,_transparent_4px_12px)]
             dark:[background-image:repeating-linear-gradient(to_right,_white_0_6px,_transparent_4px_12px)]
             [mask-image:linear-gradient(to_right,_transparent,_black_20%,_black_80%,_transparent)]

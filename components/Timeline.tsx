@@ -73,42 +73,35 @@ const TimelineItemComponent = ({
       </motion.div>
 
       {/* Timeline Card */}
+      {/* Timeline Card */}
       <motion.div
         initial={{ opacity: 0, x: 100, scale: 0.8 }}
         animate={showCard ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 100, scale: 0.8 }}
         transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], type: "spring", stiffness: 100 }}
-        className="flex-1 max-w-2xl"
+        className="w-sm sm:w-md md:w-lg lg:w-2xl px-3 sm:px-0"
       >
-        <motion.div className="relative group cursor-pointer" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
-          {/* Glass Background (light & dark) */}
+        <motion.div
+          className="relative group cursor-pointer"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* Glass Background */}
           <div className="absolute inset-0 rounded-2xl border shadow-lg backdrop-blur-xl 
-                          bg-white/80 border-neutral-200 
-                          dark:bg-neutral-900/60 dark:border-neutral-700" />
-
-          {/* Hover shimmer */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-neutral-700/30 -translate-x-full"
-              animate={{ x: ["0%", "200%"] }}
-              transition={{ duration: 0.8, ease: "easeInOut", repeat: 0 }}
-              style={{ display: "none" }}
-              whileHover={{ display: "block" }}
-            />
-          </div>
+                    bg-white/80 border-neutral-200 
+                    dark:bg-neutral-900/60 dark:border-neutral-700" />
 
           {/* Content */}
-          <div className="relative p-6 space-y-2">
+          <div className="relative p-4 sm:p-6 space-y-2">
             <div className="flex items-center justify-between">
               <div
-                className={`flex items-center font-mono gap-1 px-2 py-1 rounded-full ${
-                  item.type === "work"
+                className={`flex items-center font-mono gap-1 px-2 py-1 rounded-full ${item.type === "work"
                     ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
                     : item.type === "education"
                       ? "bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20"
                       : item.type === "project"
                         ? "bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20"
                         : "bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20"
-                }`}
+                  }`}
               >
                 {getTypeIcon(item.type)}
                 <span className="text-[12px] font-semibold uppercase tracking-wider">{item.type}</span>
@@ -153,19 +146,19 @@ const TimelineItemComponent = ({
 
             {/* Soft colored accent */}
             <div
-              className={`absolute top-0 right-0 w-20 h-20 rounded-full opacity-10 blur-2xl ${
-                item.type === "work"
+              className={`absolute top-0 right-0 w-20 h-20 rounded-full opacity-10 blur-2xl ${item.type === "work"
                   ? "bg-blue-500"
                   : item.type === "education"
                     ? "bg-green-500"
                     : item.type === "project"
                       ? "bg-purple-500"
                       : "bg-orange-500"
-              }`}
+                }`}
             />
           </div>
         </motion.div>
       </motion.div>
+
     </div>
   )
 }
@@ -190,7 +183,7 @@ export default function Timeline({ items }: TimelineProps) {
   }, [lineProgress])
 
   // A generous line length; purely visual, doesn't affect scroll
-  const totalHeight = items.length * 260
+  const totalHeight = items.length * 290
 
   return (
     <div ref={containerRef} className="relative w-xl mx-auto py-12 pb-24">

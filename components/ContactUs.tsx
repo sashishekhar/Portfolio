@@ -99,7 +99,7 @@ export const ContactUs = () => {
         <div className="flex gap-2">
           <button
             type="submit"
-            className="w-full h-[45px] p-1 bg-neutral-200/70 dark:bg-neutral-700/30 font-mono text-neutral-900 dark:text-neutral-300 rounded-md transition-all duration-200 hover:translate-y-[-1px] active:translate-y-[0px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/40 dark:focus-visible:ring-neutral-600/50"
+            className="w-full h-[45px] p-1 btn-inset bg-neutral-200/70 dark:bg-neutral-700/30 font-mono text-neutral-900 dark:text-neutral-300 rounded-md transition-all duration-200 hover:translate-y-[-1px] active:translate-y-[0px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/40 dark:focus-visible:ring-neutral-600/50"
           >
             Send
           </button>

@@ -1,7 +1,6 @@
 "use client";
 import React from 'react'
 import {ContainerTextFlip}  from './SalutationButton'
-import DottedLine from './Dottedline'
 import { motion } from 'motion/react'
 
 const Header = () => {
