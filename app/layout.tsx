@@ -4,7 +4,7 @@ import { ThemeProvider } from "next-themes";
 import "prismjs/themes/prism-tomorrow.css";
 import "./globals.css";
 
-import LenisProvider from "./LenisProvider"; // 👈 import it
+import LenisProvider from "./LenisProvider";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -14,6 +14,29 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Shashi Shekhar / Portfolio",
   description: "Showcasing the portfolio of Shashi Shekhar",
+  openGraph: {
+    title: "Shashi Shekhar / Portfolio",
+    description: "Frontend engineer & ML lead — showcasing projects and experience.",
+    url: "https://yourdomain.com", // 👈 replace with your deployed domain
+    siteName: "Shashi Shekhar Portfolio",
+    images: [
+      {
+        url: "https://yourdomain.com/og.png", // 👈 put your OG image here
+        width: 1200,
+        height: 630,
+        alt: "Portfolio preview of Shashi Shekhar",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shashi Shekhar / Portfolio",
+    description: "Frontend engineer & ML lead — showcasing projects and experience.",
+    site: "@yourHandle", // 👈 replace with your X/Twitter handle
+    images: ["https://yourdomain.com/og.png"], // same as OG
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +48,7 @@ export default function RootLayout({
     <html lang="en" className={geistMono.variable} suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider enableSystem={true} defaultTheme="system">
-          <LenisProvider>   {/* 👈 wrap children here */}
+          <LenisProvider>
             {children}
           </LenisProvider>
         </ThemeProvider>
