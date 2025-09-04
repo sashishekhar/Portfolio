@@ -11,6 +11,9 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       smoothWheel: true,
     });
 
+    // Expose globally so components can pause/resume
+    (window as any).lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -20,6 +23,7 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
     return () => {
       lenis.destroy();
+      delete (window as any).lenis;
     };
   }, []);
 

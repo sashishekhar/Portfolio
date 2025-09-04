@@ -38,7 +38,6 @@ export function TechStackCarousel({
 
   const [sideSpacerPx, setSideSpacerPx] = React.useState(0)
   const [containerW, setContainerW] = React.useState(0)
-  const [isHovered, setIsHovered] = React.useState(false)
 
   React.useEffect(() => {
     const update = () => {
@@ -64,10 +63,9 @@ export function TechStackCarousel({
     [containerW, sideSpacerPx, slotW, step],
   )
 
-  // ✅ Memoize spring so it's stable
   const spring = React.useMemo(
     () => ({ type: "spring", stiffness: 540, damping: 22, mass: 0.7 } as const),
-    []
+    [],
   )
 
   const goToIndex = React.useCallback(
@@ -101,35 +99,6 @@ export function TechStackCarousel({
     [containerW, sideSpacerPx, slotW, step, items.length],
   )
 
-  // Check if we're at boundaries
-  const isAtStart = activeIndex === 0
-  const isAtEnd = activeIndex === items.length - 1
-
-  // Enhanced scroll lock management - only lock when not at boundaries
-  React.useEffect(() => {
-    const preventScroll = (e: Event) => {
-      e.preventDefault()
-    }
-
-    const shouldPreventScroll = isHovered && !isAtStart && !isAtEnd
-
-    if (shouldPreventScroll) {
-      document.body.style.overflow = "hidden"
-      document.addEventListener("wheel", preventScroll, { passive: false })
-      document.addEventListener("touchmove", preventScroll, { passive: false })
-    } else {
-      document.body.style.overflow = ""
-      document.removeEventListener("wheel", preventScroll)
-      document.removeEventListener("touchmove", preventScroll)
-    }
-
-    return () => {
-      document.body.style.overflow = ""
-      document.removeEventListener("wheel", preventScroll)
-      document.removeEventListener("touchmove", preventScroll)
-    }
-  }, [isHovered, isAtStart, isAtEnd])
-
   // ✅ Keyboard navigation
   React.useEffect(() => {
     const el = containerRef.current
@@ -147,10 +116,11 @@ export function TechStackCarousel({
     return () => el.removeEventListener("keydown", onKey)
   }, [goToIndex])
 
-  // ✅ Enhanced wheel navigation with boundary detection
+  // ✅ Enhanced wheel navigation with Lenis integration
   React.useEffect(() => {
     const el = containerRef.current
     if (!el) return
+
     let wheelLock = false
 
     const onWheel = (e: WheelEvent) => {
@@ -159,23 +129,38 @@ export function TechStackCarousel({
 
       const atStart = activeIndexRef.current === 0
       const atEnd = activeIndexRef.current === items.length - 1
+      const shouldPreventDefault = !(atStart && delta < 0) && !(atEnd && delta > 0)
 
-      if ((atStart && delta < 0) || (atEnd && delta > 0)) {
-        return // let page scroll naturally
+      if (shouldPreventDefault) {
+        // Prevent default behavior and stop propagation for carousel navigation
+        e.preventDefault()
+        e.stopPropagation()
+        
+        // Temporarily disable Lenis smooth scrolling
+        const lenis = (window as any).lenis
+        if (lenis) {
+          lenis.stop()
+        }
+        
+        wheelLock = true
+
+        if (delta > 0) goToIndex(activeIndexRef.current + 1)
+        else goToIndex(activeIndexRef.current - 1)
+
+        setTimeout(() => {
+          wheelLock = false
+          // Re-enable Lenis after carousel navigation
+          if (lenis) {
+            lenis.start()
+          }
+        }, 180)
       }
-
-      e.preventDefault()
-      e.stopPropagation()
-      wheelLock = true
-
-      if (delta > 0) goToIndex(activeIndexRef.current + 1)
-      else goToIndex(activeIndexRef.current - 1)
-
-      setTimeout(() => (wheelLock = false), 180)
+      // At edges: allow Lenis to handle page scroll naturally
     }
 
-    el.addEventListener("wheel", onWheel, { passive: false })
-    return () => el.removeEventListener("wheel", onWheel)
+    // Use capture phase to intercept before Lenis
+    el.addEventListener("wheel", onWheel, { passive: false, capture: true })
+    return () => el.removeEventListener("wheel", onWheel, true)
   }, [goToIndex, items.length])
 
   const dotStyle = { width: `${dotSize}px`, height: `${dotSize}px` }
@@ -189,17 +174,13 @@ export function TechStackCarousel({
           "rounded-xl border-2",
           "bg-neutral-50 dark:bg-neutral-900",
           "border-neutral-400 dark:border-neutral-500",
-          " shadow-[0px_2px_5px_rgb(0,0,0,0.1)] dark:shadow-[0px_2px_5px_rgb(255,255,255,0.1)]",
+          "shadow-[0px_2px_5px_rgb(0,0,0,0.1)] dark:shadow-[0px_2px_5px_rgb(255,255,255,0.1)]",
         )}
         tabIndex={0}
         role="listbox"
         aria-label="Tech stacks slider"
         aria-activedescendant={`stack-item-${activeIndex}`}
         onPointerDown={() => containerRef.current?.focus()}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onFocus={() => setIsHovered(true)}
-        onBlur={() => setIsHovered(false)}
       >
         <motion.div
           className="flex items-center"
@@ -208,6 +189,11 @@ export function TechStackCarousel({
           drag="x"
           dragElastic={0.22}
           dragMomentum={false}
+          onDragStart={() => {
+            // Disable Lenis during drag
+            const lenis = (window as any).lenis
+            if (lenis) lenis.stop()
+          }}
           onDrag={(e, info) => {
             const cur = (x.get() ?? 0) + info.delta.x
             x.set(cur)
@@ -222,6 +208,10 @@ export function TechStackCarousel({
             if (velocity < -threshold) target = Math.min(items.length - 1, target + 1)
             else if (velocity > threshold) target = Math.max(0, target - 1)
             goToIndex(target)
+            
+            // Re-enable Lenis after drag
+            const lenis = (window as any).lenis
+            if (lenis) lenis.start()
           }}
         >
           {/* left spacer */}

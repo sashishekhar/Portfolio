@@ -59,7 +59,7 @@ const ProNetwork = () => {
   const isMobile = useIsMobile()
 
   return (
-    <div className="bg-white dark:bg-neutral-950 transition-colors duration-300">
+    <div className="bg-white dark:bg-neutral-900 transition-colors duration-300">
       <div className="header relative">
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
@@ -96,7 +96,7 @@ const ProNetwork = () => {
               }
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="absolute h-[400px] -top-24 left-180 object-cover rounded-xl"
-              src="/projectspics/network/Signin.png"
+              src="/projectspics/network/SignIn.png"
               alt="Signin"
             />
             {/* 🖼️ DarkLightMode */}

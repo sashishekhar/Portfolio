@@ -103,8 +103,8 @@ const ProVault = () => {
               }
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="absolute h-[400px] -top-31 left-182 object-cover rounded-xl"
-              src="/projectspics/vault/Signin.png"
-              alt="Signin"
+              src="/projectspics/vault/SignIn.png"
+              alt="SignIn"
             />
             <motion.img
               animate={

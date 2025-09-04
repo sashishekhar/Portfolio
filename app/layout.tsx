@@ -32,8 +32,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shashi Shekhar / Portfolio",
-    description: "Frontend engineer & ML lead — showcasing projects and experience.",
     site: "@sashi_tw", 
     images: ["https://shashishkr-dev-portfolio-pi.vercel.app/og.png"], 
   },
