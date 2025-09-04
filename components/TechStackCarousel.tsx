@@ -3,6 +3,14 @@
 import * as React from "react"
 import { motion, useAnimation, useMotionValue } from "framer-motion"
 import { cn } from "@/lib/utils"
+import Lenis from "@studio-freight/lenis"
+
+// ✅ Extend Window type instead of using `any`
+declare global {
+  interface Window {
+    lenis?: Lenis
+  }
+}
 
 export type StackItem = {
   name: string
@@ -116,7 +124,7 @@ export function TechStackCarousel({
     return () => el.removeEventListener("keydown", onKey)
   }, [goToIndex])
 
-  // ✅ Enhanced wheel navigation with Lenis integration
+  // ✅ Wheel navigation with Lenis integration
   React.useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -132,16 +140,13 @@ export function TechStackCarousel({
       const shouldPreventDefault = !(atStart && delta < 0) && !(atEnd && delta > 0)
 
       if (shouldPreventDefault) {
-        // Prevent default behavior and stop propagation for carousel navigation
         e.preventDefault()
         e.stopPropagation()
-        
-        // Temporarily disable Lenis smooth scrolling
-        const lenis = (window as any).lenis
-        if (lenis) {
-          lenis.stop()
-        }
-        
+
+        // ✅ Lenis type-safe access
+        const lenis = window.lenis
+        lenis?.stop()
+
         wheelLock = true
 
         if (delta > 0) goToIndex(activeIndexRef.current + 1)
@@ -149,16 +154,11 @@ export function TechStackCarousel({
 
         setTimeout(() => {
           wheelLock = false
-          // Re-enable Lenis after carousel navigation
-          if (lenis) {
-            lenis.start()
-          }
+          lenis?.start()
         }, 180)
       }
-      // At edges: allow Lenis to handle page scroll naturally
     }
 
-    // Use capture phase to intercept before Lenis
     el.addEventListener("wheel", onWheel, { passive: false, capture: true })
     return () => el.removeEventListener("wheel", onWheel, true)
   }, [goToIndex, items.length])
@@ -190,9 +190,7 @@ export function TechStackCarousel({
           dragElastic={0.22}
           dragMomentum={false}
           onDragStart={() => {
-            // Disable Lenis during drag
-            const lenis = (window as any).lenis
-            if (lenis) lenis.stop()
+            window.lenis?.stop()
           }}
           onDrag={(e, info) => {
             const cur = (x.get() ?? 0) + info.delta.x
@@ -208,10 +206,8 @@ export function TechStackCarousel({
             if (velocity < -threshold) target = Math.min(items.length - 1, target + 1)
             else if (velocity > threshold) target = Math.max(0, target - 1)
             goToIndex(target)
-            
-            // Re-enable Lenis after drag
-            const lenis = (window as any).lenis
-            if (lenis) lenis.start()
+
+            window.lenis?.start()
           }}
         >
           {/* left spacer */}
