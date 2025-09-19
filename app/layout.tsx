@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "prismjs/themes/prism-tomorrow.css";
 import "./globals.css";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import LenisProvider from "./LenisProvider";
 
@@ -48,6 +49,7 @@ export default function RootLayout({
         <ThemeProvider enableSystem={true} defaultTheme="system">
           <LenisProvider>
             {children}
+            <SpeedInsights />
           </LenisProvider>
         </ThemeProvider>
       </body>
