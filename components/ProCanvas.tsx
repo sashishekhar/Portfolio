@@ -138,7 +138,7 @@ const ProCanvas = () => {
               }
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="absolute w-[200px] top-41 left-16 rounded-xl"
-              src="/projectspics/canvas/freetierlimit.png"
+              src="/projectspics/canvas/Freetierlimit.png"
               alt="Other"
             />
           </div>
