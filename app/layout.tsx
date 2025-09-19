@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import "prismjs/themes/prism-tomorrow.css";
 import "./globals.css";
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/next"
 
 import LenisProvider from "./LenisProvider";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
           <LenisProvider>
             {children}
             <SpeedInsights />
+            <Analytics />
           </LenisProvider>
         </ThemeProvider>
       </body>
